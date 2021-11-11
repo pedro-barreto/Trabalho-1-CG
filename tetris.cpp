@@ -3,14 +3,12 @@
 using namespace std;
 
 float w = 600;
-float h = 500;
+float h = 600;
 
 float posX    = 0.00 , posY   = 0.00,
-	  largura = 0.15 , altura = 0.15;
+	  largura = 50 , altura = 50;
 
 float r, g, b , peca = 1;
-
-int rotacao = 0;
 
 void quadrado(float posX, float posY){
 
@@ -168,10 +166,10 @@ void moverPeca(int key, int x, int y){
 
     switch(key){
 
-        case GLUT_KEY_LEFT:  posX -= 0.05; break;
-        case GLUT_KEY_RIGHT: posX += 0.05; break;
-        case GLUT_KEY_DOWN:  posY -= 0.05; break;
-        case GLUT_KEY_UP:    posY += 0.05; break;
+        case GLUT_KEY_LEFT:  posX -= 10; break;
+        case GLUT_KEY_RIGHT: posX += 10; break;
+        case GLUT_KEY_DOWN:  posY -= 10; break;
+        case GLUT_KEY_UP:    posY += 10; break;
 
     }
 
@@ -179,9 +177,33 @@ void moverPeca(int key, int x, int y){
 
 }
 
+float posYR;
+
+void mouseClique(int button, int state, int x, int y){
+	
+	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
+        
+		posYR = w - posY - altura;
+
+		if(peca == 1){
+
+			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + 2 * altura){
+
+				cout << "clicou" << endl;
+
+			}
+
+		}
+
+    }
+}
+
 void desenha() {
 
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glOrtho(0,w,0,h,-1,1);
+	glMatrixMode(GL_MODELVIEW);
 
 		if(peca == 1){
 
@@ -235,6 +257,7 @@ int main(int argc, char** argv) {
 
 	glutKeyboardFunc(ecolherPeca);
 	glutSpecialFunc(moverPeca);
+	glutMouseFunc(mouseClique);
 
 	glutMainLoop();
 
