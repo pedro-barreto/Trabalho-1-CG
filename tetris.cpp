@@ -5,7 +5,7 @@ using namespace std;
 float w = 600;
 float h = 600;
 
-float posX    = 0.00 , posY   = 0.00,
+float posX    = 270 , posY   = 320,
 	  largura = 50 , altura = 50;
 
 float r, g, b , peca = 1;
@@ -36,14 +36,15 @@ void quadrado(float posX, float posY){
 
 }
 
-void pecaAzul(){
 
-	r = 0; g = 0; b = 1;
+void pecaVermelha(){
 
-	quadrado(posX           , posY              );
-	quadrado(posX           , posY - 1 * altura );
-	quadrado(posX           , posY - 2 * altura );
-	quadrado(posX - largura , posY - 2 * altura );
+	r = 1; g = 0; b = 0;
+
+	quadrado(posX           , posY          );
+	quadrado(posX + largura , posY          );
+	quadrado(posX           , posY - altura );
+	quadrado(posX + largura , posY - altura );
 
 }
 
@@ -58,14 +59,26 @@ void pecaVerde(){
 
 }
 
-void pecaVermelha(){
+void pecaAzul(){
 
-	r = 1; g = 0; b = 0;
+	r = 0; g = 0; b = 1;
 
-	quadrado(posX           , posY          );
-	quadrado(posX + largura , posY          );
-	quadrado(posX           , posY - altura );
-	quadrado(posX + largura , posY - altura );
+	quadrado(posX           , posY              );
+	quadrado(posX           , posY - 1 * altura );
+	quadrado(posX           , posY - 2 * altura );
+	quadrado(posX - largura , posY - 2 * altura );
+
+}
+
+
+void pecaCiana(){
+
+	r = 0; g = 1; b = 1;
+
+	quadrado(posX , posY              );
+	quadrado(posX , posY + altura     );
+	quadrado(posX , posY - altura     );
+	quadrado(posX , posY - 2 * altura );
 
 }
 
@@ -102,17 +115,6 @@ void pecaLaranja(){
 
 }
 
-void pecaCiana(){
-
-	r = 0; g = 1; b = 1;
-
-	quadrado(posX , posY              );
-	quadrado(posX , posY + altura     );
-	quadrado(posX , posY - altura     );
-	quadrado(posX , posY - 2 * altura );
-
-}
-
 void inicializar() {
 
 	glClearColor(1,1,1,1);
@@ -135,30 +137,6 @@ void ecolherPeca(unsigned char key, int x, int y){
 	}
     
     glutPostRedisplay();
-	
-}
-
-void textPecas(const char *text, int length, int x, int y){
-
-	glMatrixMode(GL_PROJECTION);
-	double *matrix = new double[16];
-	glGetDoublev(GL_PROJECTION_MATRIX, matrix);
-	glLoadIdentity();
-	glOrtho( 0 , w , -h , 15 , -1 , 1 );
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glPushMatrix();
-	glLoadIdentity();
-	glRasterPos2i(x,y);
-	for(int i = 0; i < length; i++){
-
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15,(int)text[i]);
-
-	}
-	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixd(matrix);
-	glMatrixMode(GL_MODELVIEW);
 	
 }
 
@@ -189,9 +167,67 @@ void mouseClique(int button, int state, int x, int y){
 
 			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + 2 * altura){
 
-				cout << "clicou" << endl;
+				cout << "clicou na vermelha" << endl;
 
 			}
+
+		}else if(peca == 2){
+
+			if(x >= posX && x <= posX + largura && y >= posYR && y <= posYR + 3 * altura ||
+			 x >= posX && x <= posX + 2 * largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
+
+				cout << "clicou na verde" << endl;
+
+			}
+			
+		}else if(peca == 3){
+
+			if(x >= posX && x <= posX + largura && y >= posYR && y <= posYR + 3 * altura ||
+			 x >= posX - largura && x <= posX + largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
+
+				cout << "clicou na azul" << endl;
+
+			}
+
+			
+		}else if(peca == 4){
+
+			if(x >= posX && x <= posX + largura && y >= posYR - altura && y <= posYR + 3 * altura){
+
+				cout << "clicou na ciana" << endl;
+
+			}
+			
+		}else if(peca == 5){
+
+			if(x >= posX - largura && x <= posX + 2 * largura && y >= posYR && y <= posYR + altura ||
+			   x >= posX && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
+
+				cout << "clicou na amarela" << endl;
+
+			}
+			
+		}else if(peca == 6){
+
+			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + altura||
+			   x >= posX - largura && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
+
+				cout << "clicou na roxa" << endl;
+
+			}
+			
+		}else if(peca == 7){
+
+			if(x >= posX - largura && x <= posX + largura && y >= posYR && y <= posYR + altura||
+			   x >= posX && x <= posX + 2 * largura && y >= posYR + altura && y <= posYR + 2 * altura){
+
+				cout << "clicou na laranja" << endl;
+
+			}
+			
+		}else{
+
+			cout << "erro" << endl;
 
 		}
 
@@ -202,8 +238,11 @@ void desenha() {
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	glOrtho(0,w,0,h,-1,1);
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 		if(peca == 1){
 
@@ -234,10 +273,6 @@ void desenha() {
 			pecaLaranja();
 
 		}
-
-		std::string text;
-		text = "Digite de 1 a 7 para ecolher a peca / cor";
-		textPecas(text.data(),text.size(),0,0);
 
 	glFlush();
 
