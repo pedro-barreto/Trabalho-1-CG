@@ -9,6 +9,7 @@ float posX    = 270 , posY   = 320,
 	  largura = 50 , altura = 50;
 
 float r, g, b , peca = 1;
+float rS = 0 , gS = 0 , bS = 0;
 
 void quadrado(float posX, float posY){
 
@@ -23,7 +24,7 @@ void quadrado(float posX, float posY){
 
 		glEnd();
 
-	glColor3f(0,0,0);
+	glColor3f(rS,gS,bS);
 
 		glBegin(GL_LINE_LOOP);
 
@@ -117,7 +118,7 @@ void pecaLaranja(){
 
 void inicializar() {
 
-	glClearColor(1,1,1,1);
+	glClearColor(0.2,0.5,1,1);
     glLineWidth(3.0);
 
 }
@@ -168,6 +169,11 @@ void mouseClique(int button, int state, int x, int y){
 			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + 2 * altura){
 
 				cout << "clicou na vermelha" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 
@@ -177,6 +183,11 @@ void mouseClique(int button, int state, int x, int y){
 			 x >= posX && x <= posX + 2 * largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
 
 				cout << "clicou na verde" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 			
@@ -186,6 +197,11 @@ void mouseClique(int button, int state, int x, int y){
 			 x >= posX - largura && x <= posX + largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
 
 				cout << "clicou na azul" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 
@@ -195,6 +211,11 @@ void mouseClique(int button, int state, int x, int y){
 			if(x >= posX && x <= posX + largura && y >= posYR - altura && y <= posYR + 3 * altura){
 
 				cout << "clicou na ciana" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 			
@@ -204,6 +225,11 @@ void mouseClique(int button, int state, int x, int y){
 			   x >= posX && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
 
 				cout << "clicou na amarela" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 			
@@ -213,6 +239,11 @@ void mouseClique(int button, int state, int x, int y){
 			   x >= posX - largura && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
 
 				cout << "clicou na roxa" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 			
@@ -222,6 +253,11 @@ void mouseClique(int button, int state, int x, int y){
 			   x >= posX && x <= posX + 2 * largura && y >= posYR + altura && y <= posYR + 2 * altura){
 
 				cout << "clicou na laranja" << endl;
+				rS = 0.7, gS = 0.7, bS = 0.7;
+
+			}else{
+
+				rS = 0, gS = 0, bS = 0;
 
 			}
 			
