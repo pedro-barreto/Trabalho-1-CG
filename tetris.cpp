@@ -1,6 +1,22 @@
+//PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 #include <GL/glut.h>
 #include <iostream>
 using namespace std;
+
+#include <vector>
+
+typedef struct{
+    float x;
+    float y;
+} Ponto;
+
+typedef struct{
+    int vi;
+    int vf;
+} Segmento;
+
+vector<Ponto*> pontos;
+vector<Segmento*> segmentos;
 
 //WIDTH E HEIGHT DA JANELA
 
@@ -13,13 +29,13 @@ float largura = 50 , altura = 50;
 
 //POSICAO DAS PECAS
 
-float vermelhoPosX = 070  , vermelhoPosY = 070;
-float verdePosX    = 070  , verdePosY    = 270;
-float azulPosX     = 110 , azulPosY      = 470;
-float cianoPosX    = 270 , cianoPosY     = 130;
-float amarelaPosX  = 270 , amarelaPosY   = 310;
-float roxoPosX     = 470 , roxoPosY      = 070;
-float laranjaPosX  = 470 , laranjaPosY   = 270;
+float vermelhoPosX = 070 , vermelhoPosY = 070;
+float verdePosX    = 070 , verdePosY    = 270;
+float azulPosX     = 110 , azulPosY     = 470;
+float cianoPosX    = 270 , cianoPosY    = 130;
+float amarelaPosX  = 270 , amarelaPosY  = 310;
+float roxoPosX     = 470 , roxoPosY     = 070;
+float laranjaPosX  = 470 , laranjaPosY  = 270;
 
 //VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
 
@@ -259,23 +275,27 @@ void inicializar() {
 
 	glClearColor(0.2,0.5,1,1);
     glLineWidth(3.0);
+	glPointSize(10.0);
 
 }
 
 //FUNCAO MOUSE
 void mouseClique(int button, int state, int x, int y){
 	
+	float coord_x = x;
+    float coord_y = h - y - 1;
+
 	//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
 		
 		//AJUSTE DA COORDENADA Y
-		float vermelhoPosYR = w - vermelhoPosY - altura;
-		float verdePosYR    = w - verdePosY    - altura;
-		float azulPosYR     = w - azulPosY     - altura;
-		float cianoPosYR    = w - cianoPosY    - altura;
-		float amarelaPosYR  = w - amarelaPosY  - altura;
-		float roxoPosYR     = w - roxoPosY     - altura;
-		float laranjaPosYR  = w - laranjaPosY  - altura;
+		float vermelhoPosYR = h - vermelhoPosY - altura;
+		float verdePosYR    = h - verdePosY    - altura;
+		float azulPosYR     = h - azulPosY     - altura;
+		float cianoPosYR    = h - cianoPosY    - altura;
+		float amarelaPosYR  = h - amarelaPosY  - altura;
+		float roxoPosYR     = h - roxoPosY     - altura;
+		float laranjaPosYR  = h - laranjaPosY  - altura;
 
 		//VERIFICA SE A AREA/POSICAO DO VEMELHO FOI SELECIONADO
 		if(x >= vermelhoPosX  && x <= vermelhoPosX  + 2 * largura && 
@@ -394,6 +414,90 @@ void mouseClique(int button, int state, int x, int y){
 
     }
 
+	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){ 
+        
+        Ponto *novoPonto1 = new Ponto;
+        Ponto *novoPonto2 = new Ponto;
+        novoPonto1->x = novoPonto2->x = coord_x; 
+        novoPonto1->y = novoPonto2->y = coord_y;
+        
+        unsigned int indice = pontos.size();
+        pontos.push_back(novoPonto1);
+        pontos.push_back(novoPonto2);
+        
+        Segmento *novoSegmento = new Segmento;
+        novoSegmento->vi = indice;
+        novoSegmento->vf = indice+1;
+        segmentos.push_back(novoSegmento);
+    }
+
+	glutPostRedisplay();
+
+}
+
+void mouseArrasto(int x, int y){
+
+    float coord_x = x;
+    float coord_y = h - y - 1;
+    
+    pontos.back()->x = coord_x;
+    pontos.back()->y = coord_y;
+
+	if (vermelho){
+		
+		vermelhoPosX = coord_x;
+		vermelhoPosY = coord_y;
+
+	}else if(verde){
+
+		verdePosX = coord_x;
+		verdePosY = coord_y;
+
+	}else if(azul){
+
+		azulPosX = coord_x;
+		azulPosY = coord_y;
+
+	}else if(ciano){
+
+		cianoPosX = coord_x;
+		cianoPosY = coord_y;
+
+	}else if(amarelo){
+
+		amarelaPosX = coord_x;
+		amarelaPosY = coord_y;
+
+	}else if(roxo){
+
+		roxoPosX = coord_x;
+		roxoPosY = coord_y;
+
+	}else if(laranja){
+
+		laranjaPosX = coord_x;
+		laranjaPosY = coord_y;
+
+	}
+    
+    glutPostRedisplay();
+
+}
+
+void tecladoRotacao(unsigned char key, int x, int y){
+
+    switch(key){
+
+        case 'z': 
+        case 'Z': 
+
+			cout << "Ola mundo" << endl;
+
+		break;
+
+    }
+    
+    glutPostRedisplay();
 }
 
 //FUNCAO DESENHA PARA RENDERIZAR
@@ -405,7 +509,7 @@ void desenha() {
 	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA, PARA QUE O CLICK FUNCIONE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0,w,0,h,-1,1);
+	glOrtho(0,w-1,0,h-1,-1,1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -440,13 +544,16 @@ int main(int argc, char** argv) {
 	inicializar();
 
 	glutDisplayFunc(desenha);
-
 	glutMouseFunc(mouseClique);
+	glutMotionFunc(mouseArrasto);
+	glutKeyboardFunc(tecladoRotacao);
 
 	glutMainLoop();
 
+	return 0;
+
 }
 
-//cd Trabalho-1-CG
+//cd teste-cg
 //g++ tetris.cpp -o main.exe -lopengl32 -lfreeglut
 //start main.exe
