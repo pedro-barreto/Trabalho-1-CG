@@ -1,31 +1,19 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 #include <GL/glut.h>
-#include <vector>
-using namespace std;
 
 int angRotacao = 0;
 
-typedef struct{
-    float x;
-    float y;
-} Ponto;
-
-typedef struct{
-    int vi;
-    int vf;
-} Segmento;
-
-vector<Ponto*> pontos;
-vector<Segmento*> segmentos;
-
 //WIDTH E HEIGHT DA JANELA
+
 float h = 600;
 float w = 600;
 
-//TAMANHO DOS QUADRADOS
+//TAMANHO DAS PECAS
+
 float largura = 50 , altura = 50;
 
 //POSICAO DAS PECAS
+
 float vermelhoPosX = 070 , vermelhoPosY = 070;
 float verdePosX    = 070 , verdePosY    = 270;
 float azulPosX     = 110 , azulPosY     = 470;
@@ -34,7 +22,8 @@ float amarelaPosX  = 270 , amarelaPosY  = 310;
 float roxoPosX     = 470 , roxoPosY     = 070;
 float laranjaPosX  = 470 , laranjaPosY  = 270;
 
-//VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODER ROTACIONAR OU ARRASTAR
+//VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
+
 bool vermelho = false;
 bool verde    = false;
 bool azul     = false;
@@ -47,9 +36,8 @@ bool laranja  = false;
 //RGB DAS PECAS
 float r , g , b ;
 
-//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS OU NAO
+//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
 float rBorda = 0 , gBorda = 0 , bBorda = 0 ;
-
 
 //FUNCAO PARA CRIAR 1 QUADRADO, JA QUE TODAS AS PECAS SAO FEITAS COM 4 QUADRADOS
 void quadrado(float posX, float posY){
@@ -194,9 +182,6 @@ void pecaAmarela(){
 	//COR DA PECA
 	r = 1; g = 1; b = 0;
 
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
 	if(amarelo){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
@@ -249,6 +234,13 @@ void pecaLaranja(){
 	//COR DA PECA
 	r = 1 ; g = 0.5 ; b = 0 ;
 
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glPushMatrix();                 
+    glTranslatef(1,1,1);
+    glRotatef(angRotacao, 0,0,1);
+
 	if(laranja){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
@@ -267,6 +259,11 @@ void pecaLaranja(){
 	quadrado(laranjaPosX           , laranjaPosY - altura );
 	quadrado(laranjaPosX + largura , laranjaPosY - altura );
 
+	glutSwapBuffers();
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
 }
 
 //FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DA MAIS DESTAQUE NO CONTORNO DAS PECA
@@ -279,7 +276,10 @@ void inicializar() {
 }
 
 //FUNCAO MOUSE
-void mouseSeleciona(int button, int state, int x, int y){
+void mouseClique(int button, int state, int x, int y){
+	
+	float coord_x = x;
+    float coord_y = h - y - 1;
 
 	//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
@@ -414,7 +414,7 @@ void mouseSeleciona(int button, int state, int x, int y){
 
 }
 
-void mouseArrasta(int x, int y){
+void mouseArrasto(int x, int y){
 
     float coord_x = x;
     float coord_y = h - y;
@@ -426,7 +426,7 @@ void mouseArrasta(int x, int y){
 
 	}else if(verde){
 
-		verdePosX = coord_x;
+		verdePosX = x;
 		verdePosY = coord_y;
 
 	}else if(azul){
@@ -460,13 +460,49 @@ void mouseArrasta(int x, int y){
 
 }
 
+void tecladoRotacao(unsigned char key, int x, int y){
+
+    switch(key){
+
+        case 'z': 
+        case 'Z': 
+
+			angRotacao += 10;
+
+			if(angRotacao >= 360 ){
+
+				angRotacao = 0;
+
+			}
+
+		break;
+
+		case 'x': 
+        case 'X': 
+
+			angRotacao -= 10;
+
+			if(angRotacao <= -360 ){
+
+				angRotacao = 0;
+
+			}
+
+		break;
+
+    }
+    
+    glutPostRedisplay();
+
+}
+
 //FUNCAO DESENHA PARA RENDERIZAR
 void desenha() {
 
 	//SERVE PARA APAGAR O QUE TEM NA TELA E DENHAR NOVAMENTE
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA(600x600)(pixels), PARA QUE O CLICK FUNCIONE
+	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA, PARA QUE O CLICK FUNCIONE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0,w-1,0,h-1,-1,1);
@@ -497,17 +533,19 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_SINGLE |GLUT_RGB);
     glutInitWindowPosition(450, 150);
     glutInitWindowSize(w, h);
-    glutCreateWindow("Tetris");
+    glutCreateWindow("Teste");
 
 	inicializar();
 
 	glutDisplayFunc(desenha);
-	glutMouseFunc(mouseSeleciona);
-	glutMotionFunc(mouseArrasta);
+	glutMouseFunc(mouseClique);
+	glutMotionFunc(mouseArrasto);
+	glutKeyboardFunc(tecladoRotacao);
 
 	glutMainLoop();
 
 }
+
 //cd Trabalho-1-CG
 //g++ tetris.cpp -o main.exe -lopengl32 -lfreeglut
 //start main.exe
