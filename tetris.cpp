@@ -5,11 +5,17 @@ using namespace std;
 float w = 600;
 float h = 600;
 
-float posX    = 270 , posY   = 320,
-	  largura = 50 , altura = 50;
+float largura = 50 , altura = 50;
 
-float r, g, b , peca = 1;
-float rS = 0 , gS = 0 , bS = 0;
+float vermelhoPosX = 50 , vermelhoPosY = 50;
+float verdePosX = 50 , verdePosY = 250;
+float azulPosX = 50, azulPosY = 450;
+float cianoPosX = 250, cianoPosY = 50;
+float amarelaPosX = 250, amarelaPosY = 250 ;
+float roxoPosX = 450, roxoPosY = 50;
+float laranjaPosX = 450, laranjaPosY = 250;
+
+float r, g, b;
 
 void quadrado(float posX, float posY){
 
@@ -24,7 +30,7 @@ void quadrado(float posX, float posY){
 
 		glEnd();
 
-	glColor3f(rS,gS,bS);
+	glColor3f(0,0,0);
 
 		glBegin(GL_LINE_LOOP);
 
@@ -42,10 +48,10 @@ void pecaVermelha(){
 
 	r = 1; g = 0; b = 0;
 
-	quadrado(posX           , posY          );
-	quadrado(posX + largura , posY          );
-	quadrado(posX           , posY - altura );
-	quadrado(posX + largura , posY - altura );
+	quadrado(vermelhoPosX , vermelhoPosY);
+	quadrado(vermelhoPosX + largura , vermelhoPosY);
+	quadrado(vermelhoPosX , vermelhoPosY - altura );
+	quadrado(vermelhoPosX + largura , vermelhoPosY - altura );
 
 }
 
@@ -53,10 +59,10 @@ void pecaVerde(){
 
 	r = 0; g = 1; b = 0;
 
-	quadrado(posX           , posY              );
-	quadrado(posX           , posY - 1 * altura );
-	quadrado(posX           , posY - 2 * altura );
-	quadrado(posX + largura , posY - 2 * altura );
+	quadrado(verdePosX , verdePosY);
+	quadrado(verdePosX , verdePosY - 1 * altura );
+	quadrado(verdePosX , verdePosY - 2 * altura );
+	quadrado(verdePosX + largura , verdePosY - 2 * altura );
 
 }
 
@@ -64,10 +70,10 @@ void pecaAzul(){
 
 	r = 0; g = 0; b = 1;
 
-	quadrado(posX           , posY              );
-	quadrado(posX           , posY - 1 * altura );
-	quadrado(posX           , posY - 2 * altura );
-	quadrado(posX - largura , posY - 2 * altura );
+	quadrado(azulPosX, azulPosY);
+	quadrado(azulPosX, azulPosY - 1 * altura );
+	quadrado(azulPosX, azulPosY - 2 * altura );
+	quadrado(azulPosX - largura , azulPosY - 2 * altura );
 
 }
 
@@ -76,10 +82,10 @@ void pecaCiana(){
 
 	r = 0; g = 1; b = 1;
 
-	quadrado(posX , posY              );
-	quadrado(posX , posY + altura     );
-	quadrado(posX , posY - altura     );
-	quadrado(posX , posY - 2 * altura );
+	quadrado(cianoPosX, cianoPosY );
+	quadrado(cianoPosX , cianoPosY + altura     );
+	quadrado(cianoPosX , cianoPosY - altura     );
+	quadrado(cianoPosX , cianoPosY - 2 * altura );
 
 }
 
@@ -87,10 +93,10 @@ void pecaAmarela(){
 
 	r = 1; g = 1; b = 0;
 
-	quadrado(posX               , posY          );
-	quadrado(posX - largura     , posY          );
-	quadrado(posX + largura     , posY          );
-	quadrado(posX               , posY - altura );
+	quadrado(amarelaPosX, amarelaPosY);
+	quadrado(amarelaPosX - largura     , amarelaPosY);
+	quadrado(amarelaPosX + largura     , amarelaPosY);
+	quadrado(amarelaPosX               , amarelaPosY - altura );
 
 }
 
@@ -98,10 +104,10 @@ void pecaRoxa(){
 
 	r = 0.5; g = 0; b = 1;
 
-	quadrado(posX               , posY          );
-	quadrado(posX + largura     , posY          );
-	quadrado(posX               , posY - altura );
-	quadrado(posX - largura     , posY - altura );
+	quadrado(roxoPosX , roxoPosY);
+	quadrado(roxoPosX + largura     , roxoPosY          );
+	quadrado(roxoPosX               , roxoPosY - altura );
+	quadrado(roxoPosX - largura     , roxoPosY - altura );
 
 }
 
@@ -109,10 +115,10 @@ void pecaLaranja(){
 
 	r = 1; g = 0.5; b = 0;
 
-	quadrado(posX               , posY          );
-	quadrado(posX - largura     , posY          );
-	quadrado(posX               , posY - altura );
-	quadrado(posX + largura     , posY - altura );
+	quadrado(laranjaPosX , laranjaPosY );
+	quadrado(laranjaPosX - largura     , laranjaPosY);
+	quadrado(laranjaPosX              , laranjaPosY - altura );
+	quadrado(laranjaPosX + largura     , laranjaPosY - altura );
 
 }
 
@@ -123,147 +129,55 @@ void inicializar() {
 
 }
 
-void ecolherPeca(unsigned char key, int x, int y){
-
-	switch (key){
-
-		case '1' : peca = 1; break;
-		case '2' : peca = 2; break;
-		case '3' : peca = 3; break;
-		case '4' : peca = 4; break;
-		case '5' : peca = 5; break;
-		case '6' : peca = 6; break;
-		case '7' : peca = 7; break;
-
-	}
-    
-    glutPostRedisplay();
-	
-}
-
-void moverPeca(int key, int x, int y){
-
-    switch(key){
-
-        case GLUT_KEY_LEFT:  posX -= 10; break;
-        case GLUT_KEY_RIGHT: posX += 10; break;
-        case GLUT_KEY_DOWN:  posY -= 10; break;
-        case GLUT_KEY_UP:    posY += 10; break;
-
-    }
-
-    glutPostRedisplay();
-
-}
-
-float posYR;
-
 void mouseClique(int button, int state, int x, int y){
 	
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
         
-		posYR = w - posY - altura;
+		float vermelhoPosYR = w - vermelhoPosY - altura;
+		float verdePosYR = w - verdePosY - altura;
+		float azulPosYR = w - azulPosY - altura;
+		float cianoPosYR = w - cianoPosY - altura;
+		float amarelaPosYR = w - amarelaPosY - altura;
+		float roxoPosYR = w - roxoPosY - altura;
+		float laranjaPosYR = w - laranjaPosY - altura;
 
-		if(peca == 1){
 
-			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + 2 * altura){
+		if(x >= vermelhoPosX && x <= vermelhoPosX + 2 * largura && y >= vermelhoPosYR && y <= vermelhoPosYR + 2 * altura){
 
-				cout << "clicou na vermelha" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
+			cout << "clicou na vermelha" << endl;
 
-			}else{
+		}else if(x >= verdePosX && x <= verdePosX + largura && y >= verdePosYR && y <= verdePosYR + 3 * altura ||
+			x >= verdePosX && x <= verdePosX + 2 * largura && y >= verdePosYR + 2 * altura && y <= verdePosYR + 3* altura){
 
-				rS = 0, gS = 0, bS = 0;
+			cout << "clicou na verde" << endl;
 
-			}
+		}else if(x >= azulPosX && x <= azulPosX + largura && y >= azulPosYR && y <= azulPosYR + 3 * altura ||
+			x >= azulPosX - largura && x <= azulPosX + largura && y >= azulPosYR + 2 * altura && y <= azulPosYR + 3* altura){
 
-		}else if(peca == 2){
+			cout << "clicou na azul" << endl;
 
-			if(x >= posX && x <= posX + largura && y >= posYR && y <= posYR + 3 * altura ||
-			 x >= posX && x <= posX + 2 * largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
+		}else if(x >= cianoPosX && x <= cianoPosX + largura && y >= cianoPosYR - altura && y <= cianoPosYR + 3 * altura){
 
-				cout << "clicou na verde" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
+			cout << "clicou na ciana" << endl;
 
-			}else{
+		}else if(x >= amarelaPosX - largura && x <= amarelaPosX + 2 * largura && y >= amarelaPosYR && y <= amarelaPosYR + altura ||
+			x >= amarelaPosX && x <= amarelaPosX + largura && y >= amarelaPosYR + altura && y <= amarelaPosYR + 2 * altura){
 
-				rS = 0, gS = 0, bS = 0;
+			cout << "clicou na amarela" << endl;
 
-			}
-			
-		}else if(peca == 3){
+		}else if(x >= roxoPosX && x <= roxoPosX + 2 * largura && y >= roxoPosYR && y <= roxoPosYR + altura||
+			x >= roxoPosX - largura && x <= roxoPosX + largura && y >= roxoPosYR + altura && y <= roxoPosYR + 2 * altura){
 
-			if(x >= posX && x <= posX + largura && y >= posYR && y <= posYR + 3 * altura ||
-			 x >= posX - largura && x <= posX + largura && y >= posYR + 2 * altura && y <= posYR + 3* altura){
+			cout << "clicou na roxa" << endl;
 
-				cout << "clicou na azul" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
+		}else if(x >= laranjaPosX - largura && x <= laranjaPosX + largura && y >= laranjaPosYR && y <= laranjaPosYR + altura||
+			x >= laranjaPosX && x <= laranjaPosX + 2 * largura && y >= laranjaPosYR + altura && y <= laranjaPosYR + 2 * altura){
 
-			}else{
+			cout << "clicou na laranja" << endl;
 
-				rS = 0, gS = 0, bS = 0;
-
-			}
-
-			
-		}else if(peca == 4){
-
-			if(x >= posX && x <= posX + largura && y >= posYR - altura && y <= posYR + 3 * altura){
-
-				cout << "clicou na ciana" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
-
-			}else{
-
-				rS = 0, gS = 0, bS = 0;
-
-			}
-			
-		}else if(peca == 5){
-
-			if(x >= posX - largura && x <= posX + 2 * largura && y >= posYR && y <= posYR + altura ||
-			   x >= posX && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
-
-				cout << "clicou na amarela" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
-
-			}else{
-
-				rS = 0, gS = 0, bS = 0;
-
-			}
-			
-		}else if(peca == 6){
-
-			if(x >= posX && x <= posX + 2 * largura && y >= posYR && y <= posYR + altura||
-			   x >= posX - largura && x <= posX + largura && y >= posYR + altura && y <= posYR + 2 * altura){
-
-				cout << "clicou na roxa" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
-
-			}else{
-
-				rS = 0, gS = 0, bS = 0;
-
-			}
-			
-		}else if(peca == 7){
-
-			if(x >= posX - largura && x <= posX + largura && y >= posYR && y <= posYR + altura||
-			   x >= posX && x <= posX + 2 * largura && y >= posYR + altura && y <= posYR + 2 * altura){
-
-				cout << "clicou na laranja" << endl;
-				rS = 0.7, gS = 0.7, bS = 0.7;
-
-			}else{
-
-				rS = 0, gS = 0, bS = 0;
-
-			}
-			
 		}else{
 
-			cout << "erro" << endl;
+			cout << "Não clicou em nada" << endl;
 
 		}
 
@@ -280,35 +194,19 @@ void desenha() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-		if(peca == 1){
+		pecaVermelha();
 
-			pecaVermelha();
+		pecaVerde();
 
-		}else if(peca == 2){
+		pecaAzul();
 
-			pecaVerde();
+		pecaCiana();
+		
+		pecaAmarela();
+	
+		pecaRoxa();	
 
-		}else if(peca == 3){
-
-			pecaAzul();
-
-		}else if(peca == 4){
-
-			pecaCiana();
-			
-		}else if(peca == 5){
-
-			pecaAmarela();
-			
-		}else if(peca == 6){
-
-			pecaRoxa();	
-
-		}else if(peca == 7){
-
-			pecaLaranja();
-
-		}
+		pecaLaranja();
 
 	glFlush();
 
@@ -326,8 +224,6 @@ int main(int argc, char** argv) {
 
 	glutDisplayFunc(desenha);
 
-	glutKeyboardFunc(ecolherPeca);
-	glutSpecialFunc(moverPeca);
 	glutMouseFunc(mouseClique);
 
 	glutMainLoop();
