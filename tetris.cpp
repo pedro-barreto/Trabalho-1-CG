@@ -16,11 +16,11 @@ float largura = 50 , altura = 50;
 
 float vermelhoPosX = 070 , vermelhoPosY = 070;
 float verdePosX    = 070 , verdePosY    = 270;
-float azulPosX     = 110 , azulPosY     = 470;
-float cianoPosX    = 270 , cianoPosY    = 130;
-float amarelaPosX  = 270 , amarelaPosY  = 310;
-float roxoPosX     = 470 , roxoPosY     = 070;
-float laranjaPosX  = 470 , laranjaPosY  = 270;
+float azulPosX     = 070 , azulPosY     = 420;
+float cianoPosX    = 270 , cianoPosY    = 170;
+float amarelaPosX  = 220 , amarelaPosY  = 310;
+float roxoPosX     = 420 , roxoPosY     = 070;
+float laranjaPosX  = 420 , laranjaPosY  = 270;
 
 //VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
 
@@ -118,7 +118,7 @@ void pecaVerde(){
 
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(verdePosX           , verdePosY              );
-	quadrado(verdePosX           , verdePosY -     altura );
+	quadrado(verdePosX           , verdePosY - 1 * altura );
 	quadrado(verdePosX           , verdePosY - 2 * altura );
 	quadrado(verdePosX + largura , verdePosY - 2 * altura );
 
@@ -144,9 +144,9 @@ void pecaAzul(){
 
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(azulPosX           , azulPosY              );
-	quadrado(azulPosX           , azulPosY -     altura );
-	quadrado(azulPosX           , azulPosY - 2 * altura );
-	quadrado(azulPosX - largura , azulPosY - 2 * altura );
+	quadrado(azulPosX + largura , azulPosY              );
+	quadrado(azulPosX + largura , azulPosY + 1 * altura );
+	quadrado(azulPosX + largura , azulPosY + 2 * altura );
 
 }
 
@@ -170,9 +170,9 @@ void pecaCiana(){
 
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(cianoPosX , cianoPosY              );
-	quadrado(cianoPosX , cianoPosY + altura     );
-	quadrado(cianoPosX , cianoPosY - altura     );
+	quadrado(cianoPosX , cianoPosY - 1 * altura );
 	quadrado(cianoPosX , cianoPosY - 2 * altura );
+	quadrado(cianoPosX , cianoPosY - 3 * altura );
 
 }
 
@@ -195,10 +195,10 @@ void pecaAmarela(){
 	}
 
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
-	quadrado(amarelaPosX           , amarelaPosY          );
-	quadrado(amarelaPosX - largura , amarelaPosY          );
-	quadrado(amarelaPosX + largura , amarelaPosY          );
-	quadrado(amarelaPosX           , amarelaPosY - altura );
+	quadrado(amarelaPosX               , amarelaPosY          );
+	quadrado(amarelaPosX + 1 * largura , amarelaPosY          );
+	quadrado(amarelaPosX + 2 * largura , amarelaPosY          );
+	quadrado(amarelaPosX + 1 * largura , amarelaPosY - altura );
 
 }
 
@@ -221,10 +221,10 @@ void pecaRoxa(){
 	}
 
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
-	quadrado(roxoPosX           , roxoPosY          );
-	quadrado(roxoPosX + largura , roxoPosY          );
-	quadrado(roxoPosX           , roxoPosY - altura );
-	quadrado(roxoPosX - largura , roxoPosY - altura );
+	quadrado(roxoPosX               , roxoPosY          );
+	quadrado(roxoPosX + 1 * largura , roxoPosY          );
+	quadrado(roxoPosX + 1 * largura , roxoPosY + altura );
+	quadrado(roxoPosX + 2 * largura , roxoPosY + altura );
 
 }
 
@@ -247,10 +247,10 @@ void pecaLaranja(){
 	}
     
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
-	quadrado(laranjaPosX           , laranjaPosY          );
-	quadrado(laranjaPosX - largura , laranjaPosY          );
-	quadrado(laranjaPosX           , laranjaPosY - altura );
-	quadrado(laranjaPosX + largura , laranjaPosY - altura );
+	quadrado(laranjaPosX               , laranjaPosY          );
+	quadrado(laranjaPosX + 1 * largura , laranjaPosY          );
+	quadrado(laranjaPosX + 1 * largura , laranjaPosY - altura );
+	quadrado(laranjaPosX + 2 * largura , laranjaPosY - altura );
 
 }
 
@@ -262,6 +262,9 @@ void inicializar() {
 	glPointSize(10.0);
 
 }
+
+float distanciaX;
+float distanciaY;
 
 //FUNCAO MOUSE
 void mouseClique(int button, int state, int x, int y){
@@ -294,11 +297,14 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+			distanciaX = x - vermelhoPosX;
+			distanciaY = h - y - vermelhoPosY;
+
 		//VERIFICA SE A AREA/POSICAO DO VERDE FOI SELECIONADO
-		}else if(x >= verdePosX  && x <= verdePosX  +     largura && 
-		         y >= verdePosYR && y <= verdePosYR + 3 * altura  ||
+		}else if(x >= verdePosX  && x <= verdePosX  + largura && 
+		         y >= verdePosYR && y <= verdePosYR + 2 * altura  ||
 			     x >= verdePosX  && x <= verdePosX  + 2 * largura && 
-				 y >= verdePosYR + 2 * altura && y <= verdePosYR + 3* altura){
+				 y >= verdePosYR + 2 * altura && y <= verdePosYR + 3 * altura){
 
 			//CASO SEJA TRUE VERDE SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -309,11 +315,14 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+			distanciaX = x - verdePosX;
+			distanciaY = h - y - verdePosY;
+
 		//VERIFICA SE A AREA/POSICAO DO AZUL FOI SELECIONADO
-		}else if(x >= azulPosX  && x <= azulPosX  +     largura && 
-		         y >= azulPosYR && y <= azulPosYR + 3 * altura  ||
-			     x >= azulPosX - largura && x <= azulPosX + largura && 
-				 y >= azulPosYR + 2 * altura && y <= azulPosYR + 3* altura){
+		}else if(x >= azulPosX + largura && x <= azulPosX + 2 * altura &&
+				 y >= azulPosYR - 2 * altura && y <= azulPosYR + altura ||
+				 x >= azulPosX && x <= azulPosX + 2 * largura &&
+				 y >= azulPosYR && y <= azulPosYR + altura ){
 
 			//CASO SEJA TRUE AZUL SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -324,9 +333,12 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+			distanciaX = x - azulPosX;
+			distanciaY = h - y - azulPosY;
+
 		//VERIFICA SE A AREA/POSICAO DO CIANO FOI SELECIONADO
 		}else if(x >= cianoPosX && x <= cianoPosX + largura && 
-		         y >= cianoPosYR - altura && y <= cianoPosYR + 3 * altura){
+		         y >= cianoPosYR && y <= cianoPosYR + 4 * altura){
 
 			//CASO SEJA TRUE CIANO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -337,10 +349,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+			distanciaX = x - cianoPosX;
+			distanciaY = h - y - cianoPosY;
+
 		//VERIFICA SE A AREA/POSICAO DO AMARELO FOI SELECIONADO
-		}else if(x >= amarelaPosX - largura && x <= amarelaPosX +  2 * largura && 
+		}else if(x >= amarelaPosX && x <= amarelaPosX +  3 * largura && 
 		         y >= amarelaPosYR && y <= amarelaPosYR + altura ||
-			     x >= amarelaPosX  && x <= amarelaPosX + largura && 
+			     x >= amarelaPosX + largura && x <= amarelaPosX  + 2 *largura && 
 				 y >= amarelaPosYR + altura && y <= amarelaPosYR + 2 * altura){
 
 			//CASO SEJA TRUE AMARELO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
@@ -352,11 +367,14 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+			distanciaX = x - amarelaPosX;
+			distanciaY = h - y - amarelaPosY;
+
 		//VERIFICA SE A AREA/POSICAO DO ROXO FOI SELECIONADO
 		}else if(x >= roxoPosX  && x <= roxoPosX  + 2 * largura && 
 		         y >= roxoPosYR && y <= roxoPosYR + altura ||
-			     x >= roxoPosX - largura && x <= roxoPosX + largura && 
-				 y >= roxoPosYR + altura && y <= roxoPosYR + 2 * altura){
+			     x >= roxoPosX + largura && x <= roxoPosX + 3 * largura && 
+				 y >= roxoPosYR - altura && y <= roxoPosYR){
 
 			//CASO SEJA TRUE ROXO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -367,10 +385,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = true;
 			laranja = false;
 
+			distanciaX = x - roxoPosX;
+			distanciaY = h - y - roxoPosY;
+
 		//VERIFICA SE A AREA/POSICAO DO LARANJA FOI SELECIONADO
-		}else if(x >= laranjaPosX - largura && x <= laranjaPosX + largura && 
+		}else if(x >= laranjaPosX  && x <= laranjaPosX + 2 * largura && 
 		         y >= laranjaPosYR && y <= laranjaPosYR + altura ||
-			     x >= laranjaPosX  && x <= laranjaPosX + 2 * largura && 
+			     x >= laranjaPosX + largura && x <= laranjaPosX + 3 * largura && 
 				 y >= laranjaPosYR + altura && y <= laranjaPosYR + 2 * altura){
 
 			//CASO SEJA TRUE LARANJA SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
@@ -381,6 +402,9 @@ void mouseClique(int button, int state, int x, int y){
 			amarelo = false;
 			roxo = false;
 			laranja = true;
+
+			distanciaX = x - laranjaPosX;
+			distanciaY = h - y - laranjaPosY;
 
 		//CASO NENHUMA DAS ALTERNATIVAS SEJA TRUE SERA CONSIDERADO QUE O CLICK FOI NO FUNDO
 		}else{
@@ -409,38 +433,38 @@ void mouseArrasto(int x, int y){
 
 	if (vermelho){
 		
-		vermelhoPosX = coord_x;
-		vermelhoPosY = coord_y;
+		vermelhoPosX = coord_x - distanciaX;
+		vermelhoPosY = coord_y - distanciaY;
 
 	}else if(verde){
 
-		verdePosX = x;
-		verdePosY = coord_y;
+		verdePosX = coord_x - distanciaX;
+		verdePosY = coord_y - distanciaY;
 
 	}else if(azul){
 
-		azulPosX = coord_x;
-		azulPosY = coord_y;
+		azulPosX = coord_x - distanciaX;
+		azulPosY = coord_y - distanciaY;
 
 	}else if(ciano){
 
-		cianoPosX = coord_x;
-		cianoPosY = coord_y;
+		cianoPosX = coord_x - distanciaX;
+		cianoPosY = coord_y - distanciaY;
 
 	}else if(amarelo){
 
-		amarelaPosX = coord_x;
-		amarelaPosY = coord_y;
+		amarelaPosX = coord_x - distanciaX;
+		amarelaPosY = coord_y - distanciaY;
 
 	}else if(roxo){
 
-		roxoPosX = coord_x;
-		roxoPosY = coord_y;
+		roxoPosX = coord_x - distanciaX;
+		roxoPosY = coord_y - distanciaY;
 
 	}else if(laranja){
 
-		laranjaPosX = coord_x;
-		laranjaPosY = coord_y;
+		laranjaPosX = coord_x - distanciaX;
+		laranjaPosY = coord_y - distanciaY;
 
 	}
     
