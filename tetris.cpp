@@ -234,13 +234,6 @@ void pecaLaranja(){
 	//COR DA PECA
 	r = 1 ; g = 0.5 ; b = 0 ;
 
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glPushMatrix();                 
-    glTranslatef(1,1,1);
-    glRotatef(angRotacao, 0,0,1);
-
 	if(laranja){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
@@ -252,17 +245,12 @@ void pecaLaranja(){
 		rBorda = 0 , gBorda = 0 , bBorda = 0;
 
 	}
-
+    
 	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(laranjaPosX           , laranjaPosY          );
 	quadrado(laranjaPosX - largura , laranjaPosY          );
 	quadrado(laranjaPosX           , laranjaPosY - altura );
 	quadrado(laranjaPosX + largura , laranjaPosY - altura );
-
-	glutSwapBuffers();
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 
 }
 
@@ -467,7 +455,7 @@ void tecladoRotacao(unsigned char key, int x, int y){
         case 'z': 
         case 'Z': 
 
-			angRotacao += 10;
+			angRotacao += 90;
 
 			if(angRotacao >= 360 ){
 
@@ -480,7 +468,7 @@ void tecladoRotacao(unsigned char key, int x, int y){
 		case 'x': 
         case 'X': 
 
-			angRotacao -= 10;
+			angRotacao -= 90;
 
 			if(angRotacao <= -360 ){
 
@@ -508,19 +496,19 @@ void desenha() {
 	glOrtho(0,w-1,0,h-1,-1,1);
 
 		//RENDERIZACAO DE TODAS AS PECAS
-		pecaVermelha();
+		pecaLaranja();
 
-		pecaVerde();
+		pecaRoxa();
 
-		pecaAzul();
+		pecaAmarela();
 
 		pecaCiana();
 		
-		pecaAmarela();
-	
-		pecaRoxa();	
+		pecaAzul();
 
-		pecaLaranja();
+		pecaVerde();
+
+		pecaVermelha();
 
 	glFlush();
 
