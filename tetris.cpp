@@ -1,9 +1,9 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 #include <GL/glut.h>
-#include <iostream>
+#include <vector>
 using namespace std;
 
-#include <vector>
+int angRotacao = 0;
 
 typedef struct{
     float x;
@@ -19,16 +19,13 @@ vector<Ponto*> pontos;
 vector<Segmento*> segmentos;
 
 //WIDTH E HEIGHT DA JANELA
-
 float h = 600;
 float w = 600;
 
-//TAMANHO DAS PECAS
-
+//TAMANHO DOS QUADRADOS
 float largura = 50 , altura = 50;
 
 //POSICAO DAS PECAS
-
 float vermelhoPosX = 070 , vermelhoPosY = 070;
 float verdePosX    = 070 , verdePosY    = 270;
 float azulPosX     = 110 , azulPosY     = 470;
@@ -37,8 +34,7 @@ float amarelaPosX  = 270 , amarelaPosY  = 310;
 float roxoPosX     = 470 , roxoPosY     = 070;
 float laranjaPosX  = 470 , laranjaPosY  = 270;
 
-//VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
-
+//VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODER ROTACIONAR OU ARRASTAR
 bool vermelho = false;
 bool verde    = false;
 bool azul     = false;
@@ -51,7 +47,7 @@ bool laranja  = false;
 //RGB DAS PECAS
 float r , g , b ;
 
-//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
+//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS OU NAO
 float rBorda = 0 , gBorda = 0 , bBorda = 0 ;
 
 
@@ -94,7 +90,7 @@ void pecaVermelha(){
 	//COR DA PECA
 	r = 1; g = 0; b = 0;
 
-	if(vermelho == true){
+	if(vermelho){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -120,7 +116,7 @@ void pecaVerde(){
 	//COR DA PECA
 	r = 0; g = 1; b = 0;
 
-	if(verde == true){
+	if(verde){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -146,7 +142,7 @@ void pecaAzul(){
 	//COR DA PECA
 	r = 0; g = 0; b = 1;
 
-	if(azul == true){
+	if(azul){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -172,7 +168,7 @@ void pecaCiana(){
 	//COR DA PECA
 	r = 0; g = 1; b = 1;
 
-	if(ciano == true){
+	if(ciano){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -198,7 +194,10 @@ void pecaAmarela(){
 	//COR DA PECA
 	r = 1; g = 1; b = 0;
 
-	if(amarelo == true){
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+	if(amarelo){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -224,7 +223,7 @@ void pecaRoxa(){
 	//COR DA PECA
 	r = 0.5; g = 0; b = 1;
 
-	if(roxo == true){
+	if(roxo){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -250,7 +249,7 @@ void pecaLaranja(){
 	//COR DA PECA
 	r = 1 ; g = 0.5 ; b = 0 ;
 
-	if(laranja == true){
+	if(laranja){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
 		rBorda = 1 , gBorda = 1 , bBorda = 1;
@@ -273,17 +272,14 @@ void pecaLaranja(){
 //FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DA MAIS DESTAQUE NO CONTORNO DAS PECA
 void inicializar() {
 
-	glClearColor(0.2,0.5,1,1);
+	glClearColor(0.2,0.4,0.8,1);
     glLineWidth(3.0);
 	glPointSize(10.0);
 
 }
 
 //FUNCAO MOUSE
-void mouseClique(int button, int state, int x, int y){
-	
-	float coord_x = x;
-    float coord_y = h - y - 1;
+void mouseSeleciona(int button, int state, int x, int y){
 
 	//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
@@ -414,34 +410,14 @@ void mouseClique(int button, int state, int x, int y){
 
     }
 
-	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){ 
-        
-        Ponto *novoPonto1 = new Ponto;
-        Ponto *novoPonto2 = new Ponto;
-        novoPonto1->x = novoPonto2->x = coord_x; 
-        novoPonto1->y = novoPonto2->y = coord_y;
-        
-        unsigned int indice = pontos.size();
-        pontos.push_back(novoPonto1);
-        pontos.push_back(novoPonto2);
-        
-        Segmento *novoSegmento = new Segmento;
-        novoSegmento->vi = indice;
-        novoSegmento->vf = indice+1;
-        segmentos.push_back(novoSegmento);
-    }
-
 	glutPostRedisplay();
 
 }
 
-void mouseArrasto(int x, int y){
+void mouseArrasta(int x, int y){
 
     float coord_x = x;
-    float coord_y = h - y - 1;
-    
-    pontos.back()->x = coord_x;
-    pontos.back()->y = coord_y;
+    float coord_y = h - y;
 
 	if (vermelho){
 		
@@ -484,34 +460,16 @@ void mouseArrasto(int x, int y){
 
 }
 
-void tecladoRotacao(unsigned char key, int x, int y){
-
-    switch(key){
-
-        case 'z': 
-        case 'Z': 
-
-			cout << "Ola mundo" << endl;
-
-		break;
-
-    }
-    
-    glutPostRedisplay();
-}
-
 //FUNCAO DESENHA PARA RENDERIZAR
 void desenha() {
 
 	//SERVE PARA APAGAR O QUE TEM NA TELA E DENHAR NOVAMENTE
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA, PARA QUE O CLICK FUNCIONE
+	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA(600x600)(pixels), PARA QUE O CLICK FUNCIONE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0,w-1,0,h-1,-1,1);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 
 		//RENDERIZACAO DE TODAS AS PECAS
 		pecaVermelha();
@@ -539,21 +497,17 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_SINGLE |GLUT_RGB);
     glutInitWindowPosition(450, 150);
     glutInitWindowSize(w, h);
-    glutCreateWindow("Teste");
+    glutCreateWindow("Tetris");
 
 	inicializar();
 
 	glutDisplayFunc(desenha);
-	glutMouseFunc(mouseClique);
-	glutMotionFunc(mouseArrasto);
-	glutKeyboardFunc(tecladoRotacao);
+	glutMouseFunc(mouseSeleciona);
+	glutMotionFunc(mouseArrasta);
 
 	glutMainLoop();
 
-	return 0;
-
 }
-
-//cd teste-cg
+//cd Trabalho-1-CG
 //g++ tetris.cpp -o main.exe -lopengl32 -lfreeglut
 //start main.exe
