@@ -2,10 +2,16 @@
 #include <iostream>
 using namespace std;
 
-float w = 600;
+//WIDTH E HEIGHT DA JANELA
+
 float h = 600;
+float w = 600;
+
+//TAMANHO DAS PECAS
 
 float largura = 50 , altura = 50;
+
+//POSICAO DAS PECAS
 
 float vermelhoPosX = 070  , vermelhoPosY = 070;
 float verdePosX    = 070  , verdePosY    = 270;
@@ -15,6 +21,8 @@ float amarelaPosX  = 270 , amarelaPosY   = 310;
 float roxoPosX     = 470 , roxoPosY      = 070;
 float laranjaPosX  = 470 , laranjaPosY   = 270;
 
+//VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
+
 bool vermelho = false;
 bool verde    = false;
 bool azul     = false;
@@ -23,22 +31,24 @@ bool amarelo  = false;
 bool roxo     = false;
 bool laranja  = false;
 
-float r, g, b;
 
-float rVermelho , gVermelho , bVermelho;
-float rVerde    , gVerde    , bvVrde   ;
-float rAzul     , gAzul     , bAzul    ;
-float rCiano    , gCiano    , bCiano   ;
-float rAmarelo  , gAmarelo  , bAmarelo ;
-float rRoxo     , gRoxo     , bRoxo    ;
-float rLaranja  , gLaranja  , bLaranja ;
+//RGB DAS PECAS
+float r , g , b ;
 
+//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
+float rBorda = 0 , gBorda = 0 , bBorda = 0 ;
+
+
+//FUNCAO PARA CRIAR 1 QUADRADO, JA QUE TODAS AS PECAS SAO FEITAS COM 4 QUADRADOS
 void quadrado(float posX, float posY){
 
+	//COR QUE VAI SER DEFINIDA NA CRIACAO DAS PECAS
 	glColor3f(r,g,b);
 
+		//FIZ UM QUADRADO COM 2 TRIANGULOS
 		glBegin(GL_TRIANGLE_STRIP);
 
+			//AS 4 POSICOES DO QUADRADO
 			glVertex2f(posX           , posY          );
 			glVertex2f(posX           , posY + altura );
 			glVertex2f(posX + largura , posY          );
@@ -46,10 +56,13 @@ void quadrado(float posX, float posY){
 
 		glEnd();
 
-	glColor3f(0,0,0);
+	//COR DA BORDA QUE VAI SER DEFINIDA COM O CLICK
+	glColor3f(rBorda,gBorda,bBorda);
 
+		//UM LINE LOOP PARA CIRCULAR O QUADRADO
 		glBegin(GL_LINE_LOOP);
 
+			//AS 4 POSICOES DO CONTORNO
 			glVertex2f(posX           , posY          );
 			glVertex2f(posX + largura , posY          );
 			glVertex2f(posX + largura , posY + altura );
@@ -59,11 +72,25 @@ void quadrado(float posX, float posY){
 
 }
 
-
+//PECA VERMELHA
 void pecaVermelha(){
 
+	//COR DA PECA
 	r = 1; g = 0; b = 0;
 
+	if(vermelho == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(vermelhoPosX           , vermelhoPosY          );
 	quadrado(vermelhoPosX + largura , vermelhoPosY          );
 	quadrado(vermelhoPosX           , vermelhoPosY - altura );
@@ -71,10 +98,25 @@ void pecaVermelha(){
 
 }
 
+//PECA VERDE
 void pecaVerde(){
 
+	//COR DA PECA
 	r = 0; g = 1; b = 0;
 
+	if(verde == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(verdePosX           , verdePosY              );
 	quadrado(verdePosX           , verdePosY -     altura );
 	quadrado(verdePosX           , verdePosY - 2 * altura );
@@ -82,10 +124,25 @@ void pecaVerde(){
 
 }
 
+//PECA AZUL
 void pecaAzul(){
 
+	//COR DA PECA
 	r = 0; g = 0; b = 1;
 
+	if(azul == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(azulPosX           , azulPosY              );
 	quadrado(azulPosX           , azulPosY -     altura );
 	quadrado(azulPosX           , azulPosY - 2 * altura );
@@ -93,11 +150,25 @@ void pecaAzul(){
 
 }
 
-
+//PECA CIANA
 void pecaCiana(){
 
+	//COR DA PECA
 	r = 0; g = 1; b = 1;
 
+	if(ciano == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(cianoPosX , cianoPosY              );
 	quadrado(cianoPosX , cianoPosY + altura     );
 	quadrado(cianoPosX , cianoPosY - altura     );
@@ -105,10 +176,25 @@ void pecaCiana(){
 
 }
 
+//PECA AMARELA
 void pecaAmarela(){
 
+	//COR DA PECA
 	r = 1; g = 1; b = 0;
 
+	if(amarelo == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(amarelaPosX           , amarelaPosY          );
 	quadrado(amarelaPosX - largura , amarelaPosY          );
 	quadrado(amarelaPosX + largura , amarelaPosY          );
@@ -116,10 +202,25 @@ void pecaAmarela(){
 
 }
 
+//PECA ROXA
 void pecaRoxa(){
 
+	//COR DA PECA
 	r = 0.5; g = 0; b = 1;
 
+	if(roxo == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(roxoPosX           , roxoPosY          );
 	quadrado(roxoPosX + largura , roxoPosY          );
 	quadrado(roxoPosX           , roxoPosY - altura );
@@ -127,10 +228,25 @@ void pecaRoxa(){
 
 }
 
+//PECA LARANJA
 void pecaLaranja(){
 
-	r = 1; g = 0.5; b = 0;
+	//COR DA PECA
+	r = 1 ; g = 0.5 ; b = 0 ;
 
+	if(laranja == true){
+
+		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
+		rBorda = 1 , gBorda = 1 , bBorda = 1;
+
+	}else{
+
+		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
+		rBorda = 0 , gBorda = 0 , bBorda = 0;
+
+	}
+
+	//CONSTRUCAO DA PECA, CADA QUADRADO PRECISA DAS COORDENADAS X e Y
 	quadrado(laranjaPosX           , laranjaPosY          );
 	quadrado(laranjaPosX - largura , laranjaPosY          );
 	quadrado(laranjaPosX           , laranjaPosY - altura );
@@ -138,6 +254,7 @@ void pecaLaranja(){
 
 }
 
+//FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DA MAIS DESTAQUE NO CONTORNO DAS PECA
 void inicializar() {
 
 	glClearColor(0.2,0.5,1,1);
@@ -145,10 +262,13 @@ void inicializar() {
 
 }
 
+//FUNCAO MOUSE
 void mouseClique(int button, int state, int x, int y){
 	
+	//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
-        
+		
+		//AJUSTE DA COORDENADA Y
 		float vermelhoPosYR = w - vermelhoPosY - altura;
 		float verdePosYR    = w - verdePosY    - altura;
 		float azulPosYR     = w - azulPosY     - altura;
@@ -157,12 +277,11 @@ void mouseClique(int button, int state, int x, int y){
 		float roxoPosYR     = w - roxoPosY     - altura;
 		float laranjaPosYR  = w - laranjaPosY  - altura;
 
-
+		//VERIFICA SE A AREA/POSICAO DO VEMELHO FOI SELECIONADO
 		if(x >= vermelhoPosX  && x <= vermelhoPosX  + 2 * largura && 
 		   y >= vermelhoPosYR && y <= vermelhoPosYR + 2 * altura){
 
-			cout << "clicou na vermelha" << endl;
-
+			//CASO SEJA TRUE VERMELHO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = true;
 			verde = false;
 			azul = false;
@@ -171,13 +290,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO VERDE FOI SELECIONADO
 		}else if(x >= verdePosX  && x <= verdePosX  +     largura && 
 		         y >= verdePosYR && y <= verdePosYR + 3 * altura  ||
 			     x >= verdePosX  && x <= verdePosX  + 2 * largura && 
 				 y >= verdePosYR + 2 * altura && y <= verdePosYR + 3* altura){
 
-			cout << "clicou na verde" << endl;
-
+			//CASO SEJA TRUE VERDE SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = true;
 			azul = false;
@@ -186,13 +305,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO AZUL FOI SELECIONADO
 		}else if(x >= azulPosX  && x <= azulPosX  +     largura && 
 		         y >= azulPosYR && y <= azulPosYR + 3 * altura  ||
 			     x >= azulPosX - largura && x <= azulPosX + largura && 
 				 y >= azulPosYR + 2 * altura && y <= azulPosYR + 3* altura){
 
-			cout << "clicou na azul" << endl;
-
+			//CASO SEJA TRUE AZUL SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = false;
 			azul = true;
@@ -201,11 +320,11 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO CIANO FOI SELECIONADO
 		}else if(x >= cianoPosX && x <= cianoPosX + largura && 
 		         y >= cianoPosYR - altura && y <= cianoPosYR + 3 * altura){
 
-			cout << "clicou na ciana" << endl;
-
+			//CASO SEJA TRUE CIANO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = false;
 			azul = false;
@@ -214,13 +333,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO AMARELO FOI SELECIONADO
 		}else if(x >= amarelaPosX - largura && x <= amarelaPosX +  2 * largura && 
 		         y >= amarelaPosYR && y <= amarelaPosYR + altura ||
 			     x >= amarelaPosX  && x <= amarelaPosX + largura && 
 				 y >= amarelaPosYR + altura && y <= amarelaPosYR + 2 * altura){
 
-			cout << "clicou na amarela" << endl;
-
+			//CASO SEJA TRUE AMARELO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = false;
 			azul = false;
@@ -229,13 +348,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO ROXO FOI SELECIONADO
 		}else if(x >= roxoPosX  && x <= roxoPosX  + 2 * largura && 
 		         y >= roxoPosYR && y <= roxoPosYR + altura ||
 			     x >= roxoPosX - largura && x <= roxoPosX + largura && 
 				 y >= roxoPosYR + altura && y <= roxoPosYR + 2 * altura){
 
-			cout << "clicou na roxa" << endl;
-
+			//CASO SEJA TRUE ROXO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = false;
 			azul = false;
@@ -244,13 +363,13 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = true;
 			laranja = false;
 
+		//VERIFICA SE A AREA/POSICAO DO LARANJA FOI SELECIONADO
 		}else if(x >= laranjaPosX - largura && x <= laranjaPosX + largura && 
 		         y >= laranjaPosYR && y <= laranjaPosYR + altura ||
 			     x >= laranjaPosX  && x <= laranjaPosX + 2 * largura && 
 				 y >= laranjaPosYR + altura && y <= laranjaPosYR + 2 * altura){
 
-			cout << "clicou na laranja" << endl;
-
+			//CASO SEJA TRUE LARANJA SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde = false;
 			azul = false;
@@ -259,10 +378,10 @@ void mouseClique(int button, int state, int x, int y){
 			roxo = false;
 			laranja = true;
 
+		//CASO NENHUMA DAS ALTERNATIVAS SEJA TRUE SERA CONSIDERADO QUE O CLICK FOI NO FUNDO
 		}else{
 
-			cout << "Não clicou em nada" << endl;
-
+			//JA QUE O CLICK NAO FOI EM NENHUMA PECA, TODOS SERAO DESMARCADOS
 			vermelho = false;
 			verde = false;
 			azul = false;
@@ -277,16 +396,20 @@ void mouseClique(int button, int state, int x, int y){
 
 }
 
+//FUNCAO DESENHA PARA RENDERIZAR
 void desenha() {
 
+	//SERVE PARA APAGAR O QUE TEM NA TELA E DENHAR NOVAMENTE
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	//SERVE PARA AJUSTAR PARA A MESMA PROPORCAO DA TELA, PARA QUE O CLICK FUNCIONE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0,w,0,h,-1,1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+		//RENDERIZACAO DE TODAS AS PECAS
 		pecaVermelha();
 
 		pecaVerde();
@@ -305,6 +428,7 @@ void desenha() {
 
 }
 
+//FUNCAO MAIN PARA DEFINIR A JANELA E CHAMAR TODAS AS FUNCOES ANTERIORES
 int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
