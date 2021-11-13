@@ -1,15 +1,14 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 #include <GL/glut.h>
 #include <iostream>
-
 using namespace std;
 
 int angRotacao = 0;
 
 //WIDTH E HEIGHT DA JANELA
 
-float h = 700;
-float w = 700;
+float h = 900;
+float w = 1440;
 
 //TAMANHO DAS PECAS
 
@@ -57,7 +56,7 @@ void quadrado(float posX, float posY){
 			glVertex2f(posX           , posY          );
 			glVertex2f(posX           , posY + altura );
 			glVertex2f(posX + largura , posY          );
-			glVertex2f(posX + largura , posY + altura );		
+			glVertex2f(posX + largura , posY + altura );
 
 		glEnd();
 
@@ -81,7 +80,6 @@ void quadrado(float posX, float posY){
 void pecaVermelha(){
 
 	//COR DA PECA
-
 	r = 1; g = 0; b = 0;
 
 	if(vermelho){
@@ -260,17 +258,16 @@ void pecaLaranja(){
 
 }
 
-//FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DA MAIS DESTAQUE NO CONTORNO DAS PECA
+//FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DAR MAIS DESTAQUE NO CONTORNO DAS PECAS
 void inicializar() {
 
 	glClearColor(0.2,0.4,0.8,1);
     glLineWidth(3.0);
-	glPointSize(10.0);
 
 }
 
 float  calcLarguraTela, calcAlturaTela;
-
+//CALCULA O ACRESCIMO DA TELA PARA AJUSTAR O MOUSE
 void resolucao(int widht, int height){
 
 	calcLarguraTela = widht  - w; 
@@ -278,6 +275,7 @@ void resolucao(int widht, int height){
 
 }
 
+//A DISTANCIA DO CLIQUE PARA O VETOR DE PRODRUCAO DA PECA, PARA EVITAR TELEPORTE
 float distanciaX;
 float distanciaY;
 
@@ -438,11 +436,14 @@ void mouseClique(int button, int state, int x, int y){
 
 }
 
+//FUNCAO PARA MOVIMENTAR AS PECAS
 void mouseArrasto(int x, int y){
 
+	//VARIAVEIS CRIADAS PARA ORGANIZACAO
     float coord_x = x;
     float coord_y = h - y;
 
+	//MOVIMENTACAO DA PECA LEVANDO EM CONSIDERACAO A DISTANCIA DO MOUSE E DO VETOR DE PRODUCAO DA PECA
 	if (vermelho){
 		
 		vermelhoPosX = coord_x - distanciaX;
@@ -541,7 +542,6 @@ void desenha() {
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glPushMatrix();
 
 		//RENDERIZACAO DE TODAS AS PECAS
 		pecaLaranja();
@@ -557,8 +557,7 @@ void desenha() {
 		pecaVerde(); 
  
 		pecaVermelha();
-
-	glPopMatrix();                  
+                
     glutSwapBuffers();
 
 }
@@ -566,12 +565,14 @@ void desenha() {
 //FUNCAO MAIN PARA DEFINIR A JANELA E CHAMAR TODAS AS FUNCOES ANTERIORES
 int main(int argc, char** argv) {
 
+	//CONFIGURACAO DAS TELAS
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(0, 0);
     glutInitWindowSize(w, h);
     glutCreateWindow("Teste");
 
+	//CHAMANDO AS FUNCOES ANTERIORES
 	inicializar();
 
 	glutDisplayFunc(desenha);
@@ -580,6 +581,7 @@ int main(int argc, char** argv) {
 	glutMotionFunc(mouseArrasto);
 	glutKeyboardFunc(tecladoRotacao);
 
+	//DEIXANDO EM LOOP INFINITO
 	glutMainLoop();
 
 }
