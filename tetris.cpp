@@ -5,11 +5,12 @@
 #include "funcoes/hitbox.h"//A FUNCAO QUE VAI VER SE O MOUSE CLICOU NA PECA FICA AQUI
 #include "funcoes/arrastarPeca.h"//A FUNCAO QUE VAI PERMITIR ARRASTAR A PECA SEM LAG
 #include "funcoes/mudarCorPeca.h"//A FUNCAO QUE VAI PERMITIR O USUARIO MUDAR A COR DA PECA
+#include "funcoes/textoCores.h"//FUNCAO QUE MOSTRA UM TEXTO NA TELA, INFORMANDO CORES DISPONIVEIS
 
 //FUNCAO INICIALIZAR
 void inicializar(){
 
-	glClearColor(0.2 , 0.4 , 0.8 , 1);//COR MEIO AZULADA
+	glClearColor(0.2 , 0.4 , 0.8 , 1);//COR MEIO AZULADA, PARA DAR DESTAQUE NO BRANCO DA PECA SELECIONADA
     glLineWidth(3.0);//AUMENTO DAS LINHAS/ARESTAS PARA DAR DESTAQUE NAS BORDAS
 
 }
@@ -38,6 +39,9 @@ void desenha() {//FUNCAO DESENHA PARA RENDERIZAR
 		pecaAzul();
 		pecaVerde(); 
 		pecaVermelha();
+
+		//AS CORES DISPONIVEIS SAO MOSTRADAS NA TELA, UMA STRING
+		escrever();
        
     glutSwapBuffers();//DESENHA
 
@@ -65,7 +69,3 @@ int main(int argc, char** argv) {
 	glutMainLoop();//DEIXANDO EM LOOP INFINITO, PARA MOSTRAR A JANELA E SEUS ATRIBUTOS
 
 }
-
-//cd Trabalho-1-CG
-//g++ tetris.cpp -o main.exe -lopengl32 -lfreeglut
-//start main.exe

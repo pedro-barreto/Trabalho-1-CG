@@ -1,7 +1,7 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 //WIDTH E HEIGHT DA JANELA
-int w = 1440;
-int h = 900;
+int w = 1400;
+int h = 800;
 
 //TAMANHO DOS QUADRADOS
 float largura = 50.0 , altura = 50.0;
