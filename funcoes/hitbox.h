@@ -1,3 +1,4 @@
+//PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 //FUNCAO MOUSE CLIQUE PARA VER SE O CLICK FOI NO HITBOX DA PECA
 void mouseClique(int button, int state, int x, int y){
 
