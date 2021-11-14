@@ -1,19 +1,17 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 #include <GL/glut.h>
-#include <iostream>
-using namespace std;
 
-//HEIGHT E WIDTH DA JANELA
-int h = 900;
-int w = 1440;
+//WIDTH E HEIGHT DA JANELA
+int w = 700;
+int h = 700;
 
 //TAMANHO DAS PECAS
 float largura = 50.0 , altura = 50.0;
 
 //POSICAO DAS PECAS
-float vermelhoPosX = 070.0 , vermelhoPosY = 120.0;
-float verdePosX    = 070.0 , verdePosY    = 320.0;
-float azulPosX     = 070.0 , azulPosY     = 470.0;
+float vermelhoPosX =  70.0 , vermelhoPosY = 120.0;
+float verdePosX    =  70.0 , verdePosY    = 320.0;
+float azulPosX     =  70.0 , azulPosY     = 470.0;
 float cianoPosX    = 270.0 , cianoPosY    = 220.0;
 float amarelaPosX  = 220.0 , amarelaPosY  = 360.0;
 float roxoPosX     = 420.0 , roxoPosY     = 120.0;
@@ -41,12 +39,14 @@ float roxoR     = 1.0 , roxoG     = 0.5 , roxoB     = 0.0;
 
 float bordaR , bordaG , bordaB ;//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
 
+//TODAS AS VARIAVEIS ACIMA ESTAO GLOBAIS PARA PODER USAR EM OUTRAS FUNCOES
+
 //FUNCAO PARA CRIAR 1 QUADRADO, JA QUE TODAS AS PECAS SAO FEITAS COM 4 QUADRADOS
 void quadrado(float posX, float posY){
 
 	glColor3f(r,g,b);//COR QUE VAI SER DEFINIDA NA CRIACAO DAS PECAS
 
-		glBegin(GL_QUADS);//PRODUCAO DA PECA
+		glBegin(GL_QUADS);//MANEIRA QUE VAI SER PRODUZIDA A PECA
 
 			//AS 4 POSICOES DO QUADRADO
 			glVertex2f(posX           , posY          );
@@ -466,7 +466,7 @@ void mouseArrasto(int x, int y){
 
 }
 
-void tecladoCor(unsigned char key, int x, int y){
+void tecladoCor(unsigned char key, int x, int y){//FUNCAO QUE DE DETECTA SE A PECA ESTA SELECIONADA E PERMITE MUDAR A COR
 
 	if(vermelho){//SE VERMELHO FOR TRUE = SELECIONADO
 
@@ -552,9 +552,7 @@ void desenha() {//FUNCAO DESENHA PARA RENDERIZAR
 	//AJUSTE DA TELA, PARA NAO FICAR -1 A 1
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0 , w-1 , 0 , h-1 , -1 , 1 );//DEFININDO O TAMANHO DA JANELA/MUNDO
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+	glOrtho(0 , w - 1, 0 , h - 1, -1 , 1 );//DEFININDO O TAMANHO DA JANELA/MUNDO
 
 		//RENDERIZACAO DE TODAS AS PECAS
 		pecaLaranja();
@@ -588,7 +586,7 @@ int main(int argc, char** argv) {
 	glutMotionFunc(mouseArrasto);//FUNCAO QUE IRA ARRASTAR O OBJETO
 	glutKeyboardFunc(tecladoCor);//FUNCAO QUE O USUARIO IRA MUDAR A COR DO OBJETO SELECIONADO
 
-	glutMainLoop();//DEIXANDO EM LOOP INFINITO
+	glutMainLoop();//DEIXANDO EM LOOP INFINITO, PARA MOSTRAR A JANELA E SEUS ATRIBUTOS
 
 }
 
