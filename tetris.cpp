@@ -3,29 +3,23 @@
 #include <iostream>
 using namespace std;
 
-int angRotacao = 0;
-
 //WIDTH E HEIGHT DA JANELA
-
-float h = 900;
-float w = 1440;
+int h = 900;
+int w = 1440;
 
 //TAMANHO DAS PECAS
-
-float largura = 50 , altura = 50;
+float largura = 50.0 , altura = 50.0;
 
 //POSICAO DAS PECAS
-
-float vermelhoPosX = 070 , vermelhoPosY = 120;
-float verdePosX    = 070 , verdePosY    = 320;
-float azulPosX     = 070 , azulPosY     = 470;
-float cianoPosX    = 270 , cianoPosY    = 220;
-float amarelaPosX  = 220 , amarelaPosY  = 360;
-float roxoPosX     = 420 , roxoPosY     = 120;
-float laranjaPosX  = 420 , laranjaPosY  = 320;
+float vermelhoPosX = 070.0 , vermelhoPosY = 120.0;
+float verdePosX    = 070.0 , verdePosY    = 320.0;
+float azulPosX     = 070.0 , azulPosY     = 470.0;
+float cianoPosX    = 270.0 , cianoPosY    = 220.0;
+float amarelaPosX  = 220.0 , amarelaPosY  = 360.0;
+float roxoPosX     = 420.0 , roxoPosY     = 120.0;
+float laranjaPosX  = 420.0 , laranjaPosY  = 320.0;
 
 //VERIFICADOR, VAI VERIFICAR SE A PECA FOI SELECIONADA PARA PODE ROTACIONAR OU ARRASTAR
-
 bool vermelho = false;
 bool verde    = false;
 bool azul     = false;
@@ -38,10 +32,17 @@ bool laranja  = false;
 //RGB DAS PECAS
 float r , g , b ;
 
-float vermelhoR, vermelhoG, vermelhoB;
+//CORES QUE VAO SER MUDADAS AO SEREM SELECIONADAS
+float vermelhoR = 1.0 , vermelhoG = 0.0 , vermelhoB = 0.0;
+float verdeR    = 0.0 , verdeG    = 1.0 ,verdeB     = 0.0;
+float azulR     = 0.0 , azulG     = 0.0 ,azulB      = 1.0;
+float cianoR    = 0.0 , cianoG    = 1.0 ,cianoB     = 1.0;
+float amareloR  = 1.0 , amareloG  = 1.0 ,amareloB   = 0.0;
+float laranjaR  = 0.5 , laranjaG  = 0.0 ,laranjaB   = 1.0;
+float roxoR     = 1.0 , roxoG     = 0.5 ,roxoB      = 0.0;
 
 //RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
-float rBorda = 0 , gBorda = 0 , bBorda = 0 ;
+float bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0 ;
 
 //FUNCAO PARA CRIAR 1 QUADRADO, JA QUE TODAS AS PECAS SAO FEITAS COM 4 QUADRADOS
 void quadrado(float posX, float posY){
@@ -61,7 +62,7 @@ void quadrado(float posX, float posY){
 		glEnd();
 
 	//COR DA BORDA QUE VAI SER DEFINIDA COM O CLICK
-	glColor3f(rBorda,gBorda,bBorda);
+	glColor3f(bordaR,bordaG,bordaB);
 
 		//UM LINE LOOP PARA CIRCULAR O QUADRADO
 		glBegin(GL_LINE_LOOP);
@@ -80,17 +81,17 @@ void quadrado(float posX, float posY){
 void pecaVermelha(){
 
 	//COR DA PECA
-	r = 1; g = 0; b = 0;
+	r = vermelhoR; g = vermelhoG; b = vermelhoB;
 
 	if(vermelho){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -106,17 +107,17 @@ void pecaVermelha(){
 void pecaVerde(){
 
 	//COR DA PECA
-	r = 0; g = 1; b = 0;
+	r = verdeR; g = verdeG; b = verdeB;
 
 	if(verde){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -132,17 +133,17 @@ void pecaVerde(){
 void pecaAzul(){
 
 	//COR DA PECA
-	r = 0; g = 0; b = 1;
+	r = azulR; g = azulG; b = azulB;
 
 	if(azul){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -158,17 +159,17 @@ void pecaAzul(){
 void pecaCiana(){
 
 	//COR DA PECA
-	r = 0; g = 1; b = 1;
+	r = cianoR; g = cianoG; b = cianoB;
 
 	if(ciano){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -184,17 +185,17 @@ void pecaCiana(){
 void pecaAmarela(){
 
 	//COR DA PECA
-	r = 1; g = 1; b = 0;
+	r = amareloR; g = amareloG; b = amareloB;
 
 	if(amarelo){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -210,17 +211,17 @@ void pecaAmarela(){
 void pecaRoxa(){
 
 	//COR DA PECA
-	r = 0.5; g = 0; b = 1;
+	r = roxoR; g = roxoG; b = roxoB;
 
 	if(roxo){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -236,17 +237,17 @@ void pecaRoxa(){
 void pecaLaranja(){
 
 	//COR DA PECA
-	r = 1 ; g = 0.5 ; b = 0 ;
+	r = laranjaR; g = laranjaG; b = laranjaB;
 
 	if(laranja){
 
 		//SE A PECA FOR SELECIONADA O CONTORNO DELA FICARA BRANCO
-		rBorda = 1 , gBorda = 1 , bBorda = 1;
+		bordaR = 1.0 , bordaG = 1.0 , bordaB = 1.0;
 
 	}else{
 
 		//CASO CONTRARIO O CONTORNO VOLTARA A SER PRETO
-		rBorda = 0 , gBorda = 0 , bBorda = 0;
+		bordaR = 0.0 , bordaG = 0.0 , bordaB = 0.0;
 
 	}
 
@@ -261,7 +262,7 @@ void pecaLaranja(){
 //FUNCAO INICIALIZAR, COR DE FUNDO MEIO AZULADA E TAMANHO DAS LINHA 3, PARA DAR MAIS DESTAQUE NO CONTORNO DAS PECAS
 void inicializar() {
 
-	glClearColor(0.2,0.4,0.8,1);
+	glClearColor(0.2 , 0.4 , 0.8 , 1);
     glLineWidth(3.0);
 
 }
@@ -286,13 +287,13 @@ void mouseClique(int button, int state, int x, int y){
 	if(button == GLUT_LEFT && state == GLUT_DOWN){ 
 		
 		//AJUSTE DA COORDENADA Y
-		float vermelhoPosYR = h - vermelhoPosY - altura + calcAlturaTela;
-		float verdePosYR    = h - verdePosY    - altura + calcAlturaTela;
-		float azulPosYR     = h - azulPosY     - altura + calcAlturaTela;
-		float cianoPosYR    = h - cianoPosY    - altura + calcAlturaTela;
-		float amarelaPosYR  = h - amarelaPosY  - altura + calcAlturaTela;
-		float roxoPosYR     = h - roxoPosY     - altura + calcAlturaTela;
-		float laranjaPosYR  = h - laranjaPosY  - altura + calcAlturaTela;
+		float vermelhoPosYR = h - vermelhoPosY - altura + calcAlturaTela + 4;// pois é o -1 da tela e + 5 contando com as bordas
+		float verdePosYR    = h - verdePosY    - altura + calcAlturaTela + 4;
+		float azulPosYR     = h - azulPosY     - altura + calcAlturaTela + 4;
+		float cianoPosYR    = h - cianoPosY    - altura + calcAlturaTela + 4;
+		float amarelaPosYR  = h - amarelaPosY  - altura + calcAlturaTela + 4;
+		float roxoPosYR     = h - roxoPosY     - altura + calcAlturaTela + 4;
+		float laranjaPosYR  = h - laranjaPosY  - altura + calcAlturaTela + 4;
 
 		//VERIFICA SE A AREA/POSICAO DO VEMELHO FOI SELECIONADO
 		if(x >= vermelhoPosX  && x <= vermelhoPosX  + 2 * largura && 
@@ -325,7 +326,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
-			distanciaX = x     - verdePosX;
+			distanciaX =     x - verdePosX;
 			distanciaY = h - y - verdePosY;
 
 		//VERIFICA SE A AREA/POSICAO DO AZUL FOI SELECIONADO
@@ -343,7 +344,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
-			distanciaX = x     - azulPosX;
+			distanciaX =     x - azulPosX;
 			distanciaY = h - y - azulPosY;
 
 		//VERIFICA SE A AREA/POSICAO DO CIANO FOI SELECIONADO
@@ -359,7 +360,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
-			distanciaX = x     - cianoPosX;
+			distanciaX =     x - cianoPosX;
 			distanciaY = h - y - cianoPosY;
 
 		//VERIFICA SE A AREA/POSICAO DO AMARELO FOI SELECIONADO
@@ -377,14 +378,14 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
-			distanciaX = x     - amarelaPosX;
+			distanciaX =     x - amarelaPosX;
 			distanciaY = h - y - amarelaPosY;
 
 		//VERIFICA SE A AREA/POSICAO DO ROXO FOI SELECIONADO
 		}else if(x >= roxoPosX  && x <= roxoPosX  + 2 * largura && 
 		         y >= roxoPosYR && y <= roxoPosYR + 1 * altura  ||
 			     x >= roxoPosX  + largura && x <= roxoPosX + 3 * largura && 
-				 y >= roxoPosYR - altura  && y <= roxoPosYR){
+				 y >= roxoPosYR - altura && y <= roxoPosYR){
 
 			//CASO SEJA TRUE ROXO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -395,7 +396,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = true;
 			laranja  = false;
 
-			distanciaX = x     - roxoPosX;
+			distanciaX =     x - roxoPosX;
 			distanciaY = h - y - roxoPosY;
 
 		//VERIFICA SE A AREA/POSICAO DO LARANJA FOI SELECIONADO
@@ -413,7 +414,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = true;
 
-			distanciaX = x     - laranjaPosX;
+			distanciaX =     x - laranjaPosX;
 			distanciaY = h - y - laranjaPosY;
 
 		//CASO NENHUMA DAS ALTERNATIVAS SEJA TRUE SERA CONSIDERADO QUE O CLICK FOI NO FUNDO
@@ -485,46 +486,80 @@ void mouseArrasto(int x, int y){
 
 }
 
-void tecladoRotacao(unsigned char key, int x, int y){
+void tecladoCor(unsigned char key, int x, int y){
 
-    if(vermelho || verde || azul || ciano || amarelo || roxo || laranja){
+	if(vermelho){
 
-        switch(key){
+		     if(key == '1'){vermelhoR = 1.0; vermelhoG = 0.0; vermelhoB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){vermelhoR = 0.0; vermelhoG = 1.0; vermelhoB = 0.0;}// 2 = VERDE
+		else if(key == '3'){vermelhoR = 0.0; vermelhoG = 0.0; vermelhoB = 1.0;}// 3 = AZUL
+		else if(key == '4'){vermelhoR = 0.0; vermelhoG = 1.0; vermelhoB = 1.0;}// 4 = CIANO
+		else if(key == '5'){vermelhoR = 1.0; vermelhoG = 1.0; vermelhoB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){vermelhoR = 0.5; vermelhoG = 0.0; vermelhoB = 1.0;}// 6 = ROXO
+		else if(key == '7'){vermelhoR = 1.0; vermelhoG = 0.5; vermelhoB = 0.0;}// 7 = LARANJA
 
-        case 'z': 
-        case 'Z': 
+	}else if(verde){
 
-			angRotacao += 10;
+			 if(key == '1'){verdeR = 1.0; verdeG = 0.0; verdeB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){verdeR = 0.0; verdeG = 1.0; verdeB = 0.0;}// 2 = VERDE
+		else if(key == '3'){verdeR = 0.0; verdeG = 0.0; verdeB = 1.0;}// 3 = AZUL
+		else if(key == '4'){verdeR = 0.0; verdeG = 1.0; verdeB = 1.0;}// 4 = CIANO
+		else if(key == '5'){verdeR = 1.0; verdeG = 1.0; verdeB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){verdeR = 0.5; verdeG = 0.0; verdeB = 1.0;}// 6 = ROXO
+		else if(key == '7'){verdeR = 1.0; verdeG = 0.5; verdeB = 0.0;}// 7 = LARANJA
 
-			if(angRotacao >= 360 ){
+	}else if(azul){
 
-				angRotacao = 0;
+			 if(key == '1'){azulR = 1.0; azulG = 0.0; azulB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){azulR = 0.0; azulG = 1.0; azulB = 0.0;}// 2 = VERDE
+		else if(key == '3'){azulR = 0.0; azulG = 0.0; azulB = 1.0;}// 3 = AZUL
+		else if(key == '4'){azulR = 0.0; azulG = 1.0; azulB = 1.0;}// 4 = CIANO
+		else if(key == '5'){azulR = 1.0; azulG = 1.0; azulB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){azulR = 0.5; azulG = 0.0; azulB = 1.0;}// 6 = ROXO
+		else if(key == '7'){azulR = 1.0; azulG = 0.5; azulB = 0.0;}// 7 = LARANJA
 
-			}
+	}else if(ciano){
 
-            cout << "Sentido anti-horario" << endl;
+			 if(key == '1'){cianoR = 1.0; cianoG = 0.0; cianoB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){cianoR = 0.0; cianoG = 1.0; cianoB = 0.0;}// 2 = VERDE
+		else if(key == '3'){cianoR = 0.0; cianoG = 0.0; cianoB = 1.0;}// 3 = AZUL
+		else if(key == '4'){cianoR = 0.0; cianoG = 1.0; cianoB = 1.0;}// 4 = CIANO
+		else if(key == '5'){cianoR = 1.0; cianoG = 1.0; cianoB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){cianoR = 0.5; cianoG = 0.0; cianoB = 1.0;}// 6 = ROXO
+		else if(key == '7'){cianoR = 1.0; cianoG = 0.5; cianoB = 0.0;}// 7 = LARANJA
 
-		break;
+	}else if(amarelo){
 
-		case 'x': 
-        case 'X': 
+			 if(key == '1'){amareloR = 1.0; amareloG = 0.0; amareloB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){amareloR = 0.0; amareloG = 1.0; amareloB = 0.0;}// 2 = VERDE
+		else if(key == '3'){amareloR = 0.0; amareloG = 0.0; amareloB = 1.0;}// 3 = AZUL
+		else if(key == '4'){amareloR = 0.0; amareloG = 1.0; amareloB = 1.0;}// 4 = CIANO
+		else if(key == '5'){amareloR = 1.0; amareloG = 1.0; amareloB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){amareloR = 0.5; amareloG = 0.0; amareloB = 1.0;}// 6 = ROXO
+		else if(key == '7'){amareloR = 1.0; amareloG = 0.5; amareloB = 0.0;}// 7 = LARANJA
 
-			angRotacao -= 10;
+	}else if(laranja){
 
-			if(angRotacao <= -360 ){
+			 if(key == '1'){laranjaR = 1.0; laranjaG = 0.0; laranjaB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 0.0;}// 2 = VERDE
+		else if(key == '3'){laranjaR = 0.0; laranjaG = 0.0; laranjaB = 1.0;}// 3 = AZUL
+		else if(key == '4'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 1.0;}// 4 = CIANO
+		else if(key == '5'){laranjaR = 1.0; laranjaG = 1.0; laranjaB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){laranjaR = 0.5; laranjaG = 0.0; laranjaB = 1.0;}// 6 = ROXO
+		else if(key == '7'){laranjaR = 1.0; laranjaG = 0.5; laranjaB = 0.0;}// 7 = LARANJA
 
-				angRotacao = 0;
+	}else if(roxo){
 
-			}
+			 if(key == '1'){roxoR = 1.0; roxoG = 0.0; roxoB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){roxoR = 0.0; roxoG = 1.0; roxoB = 0.0;}// 2 = VERDE
+		else if(key == '3'){roxoR = 0.0; roxoG = 0.0; roxoB = 1.0;}// 3 = AZUL
+		else if(key == '4'){roxoR = 0.0; roxoG = 1.0; roxoB = 1.0;}// 4 = CIANO
+		else if(key == '5'){roxoR = 1.0; roxoG = 1.0; roxoB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){roxoR = 0.5; roxoG = 0.0; roxoB = 1.0;}// 6 = ROXO
+		else if(key == '7'){roxoR = 1.0; roxoG = 0.5; roxoB = 0.0;}// 7 = LARANJA
 
-            cout << "Sentido horario" << endl;
+	}
 
-		break;
-
-        }
-
-    }
-    
     glutPostRedisplay();
 
 }
@@ -539,9 +574,6 @@ void desenha() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0 , w-1 , 0 , h-1 , -1 , 1 );
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 
 		//RENDERIZACAO DE TODAS AS PECAS
 		pecaLaranja();
@@ -579,7 +611,7 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(resolucao);
 	glutMouseFunc(mouseClique);
 	glutMotionFunc(mouseArrasto);
-	glutKeyboardFunc(tecladoRotacao);
+	glutKeyboardFunc(tecladoCor);
 
 	//DEIXANDO EM LOOP INFINITO
 	glutMainLoop();
