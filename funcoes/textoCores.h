@@ -26,27 +26,26 @@ void instrucoes(const char *text, int length, int x, int y){//FUNCAO PARA IMPRIM
 
 }
 
-void escrever(){
+void escrever(){//IMPRIMINDO O TEXTO NA JANELA
 
-    //IMPRIMINDO O TEXTO NA JANELA
 	std::string text;
 
-    glColor3f(1.0 , 1.0 , 1.0);
-	text = "MUDE AS CORES DAS PECAS";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 20);
+    glColor3f(1.0 , 1.0 , 1.0);//COR DAS LETRAS
+	text = "MUDE AS CORES DAS PECAS";//TEXTO QUE QUERO IMPRIMIR
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 20);//IMPRIMIR E COLOCAR COORDENADAS X E Y
 	text = "1 - VERMELHO";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 40);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 40);
 	text = "2 - VERDE";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 60);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 60);
 	text = "3 - AZUL";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 80);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 80);
 	text = "4 - CIANO";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 100);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 100);
 	text = "5 - AMARELO";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 120);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 120);
 	text = "6 - ROXO";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 140);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 140);
 	text = "7 - LARANJA";
-	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 160);
+	instrucoes(text.data()  , text.size()  , 5 , h + calcAlturaTela - 160);
 
 }

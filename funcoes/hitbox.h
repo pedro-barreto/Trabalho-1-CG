@@ -2,7 +2,7 @@
 //FUNCAO MOUSE CLIQUE PARA VER SE O CLICK FOI NO HITBOX DA PECA
 void mouseClique(int button, int state, int x, int y){
 
-	if(button == GLUT_LEFT && state == GLUT_DOWN){//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
+	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 		
 		//AJUSTE DA COORDENADA Y
 		float vermelhoPosYR = h - vermelhoPosY - altura + calcAlturaTela;
@@ -26,6 +26,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - vermelhoPosX;
 			distanciaY = h - y - vermelhoPosY;
 
@@ -43,7 +44,8 @@ void mouseClique(int button, int state, int x, int y){
 			amarelo  = false;
 			roxo     = false;
 			laranja  = false;
-
+			
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - verdePosX;
 			distanciaY = h - y - verdePosY;
 
@@ -62,6 +64,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - azulPosX;
 			distanciaY = h - y - azulPosY;
 
@@ -78,6 +81,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - cianoPosX;
 			distanciaY = h - y - cianoPosY;
 
@@ -96,6 +100,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - amarelaPosX;
 			distanciaY = h - y - amarelaPosY;
 
@@ -114,6 +119,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = true ;
 			laranja  = false;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - roxoPosX;
 			distanciaY = h - y - roxoPosY;
 
@@ -132,6 +138,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = true ;
 
+			//CALCULO DA DISTANCIA DO CALCULO PARA O PONTO DE CONSTRUCAO DA PECA, PARA EVITAR TELETRANSPORTES
 			distanciaX =     x - laranjaPosX;
 			distanciaY = h - y - laranjaPosY;
 
@@ -150,6 +157,22 @@ void mouseClique(int button, int state, int x, int y){
 		}
 
     }
+
+	if(button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN){
+
+			//CRIEI ESSA FUNCAO POIS MESMO NENHUMA FUNCAO SENDO REALIZADA COM O DIRETIO, ERA POSSIVEL
+			//CLICAR COM O ESQUERDO E ARRASTAR A PECA COM O DIREITO, COM ESSA FUNCAO EVITA QUALQUER
+			//FUNCAO COM O BOTAO DIREITO
+
+			vermelho = false;
+			verde    = false;
+			azul     = false;
+			ciano    = false;
+			amarelo  = false;
+			roxo     = false;
+			laranja  = false;
+
+	}
 
 	glutPostRedisplay();//INFORMA QUE O FRAME BUFFER DEVE SER ATUALIZADO
 

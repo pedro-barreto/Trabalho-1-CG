@@ -26,7 +26,7 @@ void mouseArrasto(int x, int y){
 	}else if(ciano){//SE CIANO FOR TRUE = SELECINADO
 
 		cianoPosX = coord_x - distanciaX;//COORDENADA DA PRODUCAO DA PECA = POSICAO DO MOUSE - A DISTANCIA DOS 2
-		cianoPosY = coord_y - distanciaY;//COORDENADA DA PRODUCAO DA PECA = POSICAO DO MOUSE - A DISTANCIA DOS 2
+		cianoPosY = coord_y - distanciaY;
 
 	}else if(amarelo){//SE AMARELO FOR TRUE = SELECINADO
 

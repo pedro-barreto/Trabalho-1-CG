@@ -30,6 +30,8 @@ void desenha() {//FUNCAO DESENHA PARA RENDERIZAR
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0 , w , 0 , h , -1 , 1 );//DEFININDO O TAMANHO DA JANELA/MUNDO
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
 		//RENDERIZACAO DE TODAS AS PECAS
 		pecaLaranja();
@@ -69,3 +71,7 @@ int main(int argc, char** argv) {
 	glutMainLoop();//DEIXANDO EM LOOP INFINITO, PARA MOSTRAR A JANELA E SEUS ATRIBUTOS
 
 }
+
+//cd Trabalho-1-CG
+//g++ tetris.cpp -o main.exe -lopengl32 -lfreeglut
+//start main.exe

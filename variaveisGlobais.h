@@ -39,8 +39,7 @@ float laranjaR  = 1.0 , laranjaG  = 0.5 , laranjaB  = 0.0;
 float bordaR , bordaG , bordaB ;//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
 
 //FUNCEOS GLOBAL
-float  calcLarguraTela, calcAlturaTela;
+int  calcLarguraTela, calcAlturaTela;
 
 //A DISTANCIA DO CLIQUE PARA O VETOR DE PRODRUCAO DA PECA, PARA EVITAR TELEPORTE
-float distanciaX;
-float distanciaY;
+int distanciaX, distanciaY;
