@@ -1,7 +1,7 @@
 //PEDRO HENRIQUE BARRETO DOS SANTOS - 475626
 //WIDTH E HEIGHT DA JANELA
 int w = 1400;
-int h = 800;
+int h =  800;
 
 //TAMANHO DOS QUADRADOS
 float largura = 50.0 , altura = 50.0;
@@ -32,8 +32,9 @@ float verdeR    = 0.0 , verdeG    = 1.0 , verdeB    = 0.0;
 float azulR     = 0.0 , azulG     = 0.0 , azulB     = 1.0;
 float cianoR    = 0.0 , cianoG    = 1.0 , cianoB    = 1.0;
 float amareloR  = 1.0 , amareloG  = 1.0 , amareloB  = 0.0;
-float laranjaR  = 0.5 , laranjaG  = 0.0 , laranjaB  = 1.0;
-float roxoR     = 1.0 , roxoG     = 0.5 , roxoB     = 0.0;
+float roxoR     = 0.5 , roxoG     = 0.0 , roxoB     = 1.0;
+float laranjaR  = 1.0 , laranjaG  = 0.5 , laranjaB  = 0.0;
+
 
 float bordaR , bordaG , bordaB ;//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
 

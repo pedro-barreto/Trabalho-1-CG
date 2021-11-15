@@ -8,7 +8,7 @@ void instrucoes(const char *text, int length, int x, int y){//FUNCAO PARA IMPRIM
 	double *matrix = new double[16];
 	glGetDoublev(GL_PROJECTION_MATRIX,matrix);
 	glLoadIdentity();
-	glOrtho(0,w-1,0,h-1,-1,1);
+	glOrtho(0,w,0,h,-1,1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glPushMatrix();
@@ -31,7 +31,7 @@ void escrever(){
     //IMPRIMINDO O TEXTO NA JANELA
 	std::string text;
 
-    glColor3f(1,1,1);
+    glColor3f(1.0 , 1.0 , 1.0);
 	text = "MUDE AS CORES DAS PECAS";
 	instrucoes(text.data()  , text.size()  , 0 , h + calcAlturaTela - 20);
 	text = "1 - VERMELHO";

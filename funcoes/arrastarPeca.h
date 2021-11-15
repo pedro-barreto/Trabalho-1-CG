@@ -3,7 +3,7 @@
 void mouseArrasto(int x, int y){
 
 	//VARIAVEIS CRIADAS PARA ORGANIZACAO
-    float coord_x = x;
+    float coord_x =     x;
     float coord_y = h - y;
 
 	//MOVIMENTACAO DA PECA LEVANDO EM CONSIDERACAO A DISTANCIA DO MOUSE E DA COORDENADA DE PRODUCAO DA PECA

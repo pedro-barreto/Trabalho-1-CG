@@ -5,20 +5,20 @@ void mouseClique(int button, int state, int x, int y){
 	if(button == GLUT_LEFT && state == GLUT_DOWN){//VERIFICA SE O USUARIO CLICOU COM O BOTAO ESQUERDO
 		
 		//AJUSTE DA COORDENADA Y
-		float vermelhoPosYR = h - vermelhoPosY - altura + calcAlturaTela + 4;// pois é o -1 da tela e + 5 contando com as bordas
-		float verdePosYR    = h - verdePosY    - altura + calcAlturaTela + 4;
-		float azulPosYR     = h - azulPosY     - altura + calcAlturaTela + 4;
-		float cianoPosYR    = h - cianoPosY    - altura + calcAlturaTela + 4;
-		float amarelaPosYR  = h - amarelaPosY  - altura + calcAlturaTela + 4;
-		float roxoPosYR     = h - roxoPosY     - altura + calcAlturaTela + 4;
-		float laranjaPosYR  = h - laranjaPosY  - altura + calcAlturaTela + 4;
+		float vermelhoPosYR = h - vermelhoPosY - altura + calcAlturaTela;
+		float verdePosYR    = h - verdePosY    - altura + calcAlturaTela;
+		float azulPosYR     = h - azulPosY     - altura + calcAlturaTela;
+		float cianoPosYR    = h - cianoPosY    - altura + calcAlturaTela;
+		float amarelaPosYR  = h - amarelaPosY  - altura + calcAlturaTela;
+		float roxoPosYR     = h - roxoPosY     - altura + calcAlturaTela;
+		float laranjaPosYR  = h - laranjaPosY  - altura + calcAlturaTela;
 
 		//VERIFICA SE A AREA/POSICAO DO VEMELHO FOI SELECIONADO
 		if(x >= vermelhoPosX  && x <= vermelhoPosX  + 2 * largura && 
 		   y >= vermelhoPosYR && y <= vermelhoPosYR + 2 * altura){
 
 			//CASO SEJA TRUE VERMELHO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
-			vermelho = true;
+			vermelho = true ;
 			verde    = false;
 			azul     = false;
 			ciano    = false;
@@ -26,7 +26,7 @@ void mouseClique(int button, int state, int x, int y){
 			roxo     = false;
 			laranja  = false;
 
-			distanciaX = x     - vermelhoPosX;
+			distanciaX =     x - vermelhoPosX;
 			distanciaY = h - y - vermelhoPosY;
 
 		//VERIFICA SE A AREA/POSICAO DO VERDE FOI SELECIONADO
@@ -37,7 +37,7 @@ void mouseClique(int button, int state, int x, int y){
 
 			//CASO SEJA TRUE VERDE SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
-			verde    = true;
+			verde    = true ;
 			azul     = false;
 			ciano    = false;
 			amarelo  = false;
@@ -56,7 +56,7 @@ void mouseClique(int button, int state, int x, int y){
 			//CASO SEJA TRUE AZUL SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
 			verde    = false;
-			azul     = true;
+			azul     = true ;
 			ciano    = false;
 			amarelo  = false;
 			roxo     = false;
@@ -73,7 +73,7 @@ void mouseClique(int button, int state, int x, int y){
 			vermelho = false;
 			verde    = false;
 			azul     = false;
-			ciano    = true;
+			ciano    = true ;
 			amarelo  = false;
 			roxo     = false;
 			laranja  = false;
@@ -92,7 +92,7 @@ void mouseClique(int button, int state, int x, int y){
 			verde    = false;
 			azul     = false;
 			ciano    = false;
-			amarelo  = true;
+			amarelo  = true ;
 			roxo     = false;
 			laranja  = false;
 
@@ -103,7 +103,7 @@ void mouseClique(int button, int state, int x, int y){
 		}else if(x >= roxoPosX  && x <= roxoPosX  + 2 * largura && 
 		         y >= roxoPosYR && y <= roxoPosYR + 1 * altura  ||
 			     x >= roxoPosX  + largura && x <= roxoPosX + 3 * largura && 
-				 y >= roxoPosYR - altura && y <= roxoPosYR){
+				 y >= roxoPosYR - altura  && y <= roxoPosYR){
 
 			//CASO SEJA TRUE ROXO SERA SELECIONADO E TODAS AS OUTRAS SERAM DESMARCADAS
 			vermelho = false;
@@ -111,7 +111,7 @@ void mouseClique(int button, int state, int x, int y){
 			azul     = false;
 			ciano    = false;
 			amarelo  = false;
-			roxo     = true;
+			roxo     = true ;
 			laranja  = false;
 
 			distanciaX =     x - roxoPosX;
@@ -130,7 +130,7 @@ void mouseClique(int button, int state, int x, int y){
 			ciano    = false;
 			amarelo  = false;
 			roxo     = false;
-			laranja  = true;
+			laranja  = true ;
 
 			distanciaX =     x - laranjaPosX;
 			distanciaY = h - y - laranjaPosY;

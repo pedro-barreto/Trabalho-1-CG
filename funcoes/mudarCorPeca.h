@@ -51,16 +51,6 @@ void tecladoCor(unsigned char key, int x, int y){//FUNCAO QUE DE DETECTA SE A PE
 		else if(key == '6'){amareloR = 0.5; amareloG = 0.0; amareloB = 1.0;}// 6 = ROXO
 		else if(key == '7'){amareloR = 1.0; amareloG = 0.5; amareloB = 0.0;}// 7 = LARANJA
 
-	}else if(laranja){//SE LARANJA FOR TRUE = SELECIONADO
-
-			 if(key == '1'){laranjaR = 1.0; laranjaG = 0.0; laranjaB = 0.0;}// 1 = VERMELHO
-		else if(key == '2'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 0.0;}// 2 = VERDE
-		else if(key == '3'){laranjaR = 0.0; laranjaG = 0.0; laranjaB = 1.0;}// 3 = AZUL
-		else if(key == '4'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 1.0;}// 4 = CIANO
-		else if(key == '5'){laranjaR = 1.0; laranjaG = 1.0; laranjaB = 0.0;}// 5 = AMARELO
-		else if(key == '6'){laranjaR = 0.5; laranjaG = 0.0; laranjaB = 1.0;}// 6 = ROXO
-		else if(key == '7'){laranjaR = 1.0; laranjaG = 0.5; laranjaB = 0.0;}// 7 = LARANJA
-
 	}else if(roxo){//SE ROXO FOR TRUE = SELECIONADO
 
 			 if(key == '1'){roxoR = 1.0; roxoG = 0.0; roxoB = 0.0;}// 1 = VERMELHO
@@ -70,6 +60,16 @@ void tecladoCor(unsigned char key, int x, int y){//FUNCAO QUE DE DETECTA SE A PE
 		else if(key == '5'){roxoR = 1.0; roxoG = 1.0; roxoB = 0.0;}// 5 = AMARELO
 		else if(key == '6'){roxoR = 0.5; roxoG = 0.0; roxoB = 1.0;}// 6 = ROXO
 		else if(key == '7'){roxoR = 1.0; roxoG = 0.5; roxoB = 0.0;}// 7 = LARANJA
+
+	}else if(laranja){//SE LARANJA FOR TRUE = SELECIONADO
+
+			 if(key == '1'){laranjaR = 1.0; laranjaG = 0.0; laranjaB = 0.0;}// 1 = VERMELHO
+		else if(key == '2'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 0.0;}// 2 = VERDE
+		else if(key == '3'){laranjaR = 0.0; laranjaG = 0.0; laranjaB = 1.0;}// 3 = AZUL
+		else if(key == '4'){laranjaR = 0.0; laranjaG = 1.0; laranjaB = 1.0;}// 4 = CIANO
+		else if(key == '5'){laranjaR = 1.0; laranjaG = 1.0; laranjaB = 0.0;}// 5 = AMARELO
+		else if(key == '6'){laranjaR = 0.5; laranjaG = 0.0; laranjaB = 1.0;}// 6 = ROXO
+		else if(key == '7'){laranjaR = 1.0; laranjaG = 0.5; laranjaB = 0.0;}// 7 = LARANJA
 
 	}
 
