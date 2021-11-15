@@ -24,7 +24,8 @@ bool amarelo  = false;
 bool roxo     = false;
 bool laranja  = false;
 
-float r , g , b ;//RGB DAS PECAS
+//RGB DAS PECAS
+float r , g , b ;
 
 //CORES QUE VAO SER MUDADAS AO SEREM SELECIONADAS
 float vermelhoR = 1.0 , vermelhoG = 0.0 , vermelhoB = 0.0;
@@ -35,8 +36,8 @@ float amareloR  = 1.0 , amareloG  = 1.0 , amareloB  = 0.0;
 float roxoR     = 0.5 , roxoG     = 0.0 , roxoB     = 1.0;
 float laranjaR  = 1.0 , laranjaG  = 0.5 , laranjaB  = 0.0;
 
-
-float bordaR , bordaG , bordaB ;//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
+//RGB DAS BORDAS PARA MOSTRAR QUE FORAM SELECIONADAS
+float bordaR , bordaG , bordaB ;
 
 //FUNCEOS GLOBAL
 int  calcLarguraTela, calcAlturaTela;
